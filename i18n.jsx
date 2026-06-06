@@ -1,0 +1,408 @@
+/* ============================================================
+   GO AI — UI string translations (chrome / section labels)
+   Long-form content lives bilingually in data.jsx.
+   T[lang][key]; default lang = GR.
+   ============================================================ */
+
+const T = {
+  EN: {
+    /* nav + header */
+    nav_services: 'Services', nav_industries: 'Industries', nav_portfolio: 'Portfolio',
+    nav_automation: 'Automation', nav_contact: 'Contact',
+    request_proposal: 'Request Proposal', view_services: 'View Services',
+    menu: 'Menu',
+
+    /* proposal buttons */
+    add_to_proposal: 'Add to Proposal', added_to_proposal: 'Added to Proposal',
+    add_to_proposal_this: 'Add to my plan', // inline link variant
+    add_to_basket: 'Add to Basket', added_to_basket: 'Added to Basket',
+
+    /* basket */
+    nav_basket: 'Basket', basket_title: 'Your Basket',
+    basket_empty_title: 'Your basket is empty.',
+    basket_empty_text: 'Add website, automation, hosting, or marketing services to build your package.',
+    basket_empty_btn: 'View Services',
+    basket_oneoff_total: 'Estimated one-off total', basket_monthly_total: 'Estimated monthly total',
+    basket_remove: 'Remove', basket_move: 'Move to Proposal', basket_request: 'Request Proposal',
+    basket_note: 'Estimated only — this is not a checkout. Final pricing depends on your requirements.',
+    basket_items: 'items', basket_item: 'item',
+
+    /* services intro + AI automation copy */
+    svc_intro_title: 'Services built for websites, automation, and growth',
+    svc_intro_sub: 'Start with a premium website, then add WhatsApp, AI automation, SEO, hosting, and reporting as your business grows.',
+    svc_anchor_websites: 'Websites', svc_anchor_digital: 'Digital Services', svc_anchor_ai: 'AI Automation', svc_anchor_support: 'Support & Growth',
+    ai_sub: 'Save time, respond faster, and turn enquiries into structured business workflows.',
+    ai_note_1: 'GO AI helps local businesses move from manual enquiries to smarter digital workflows — WhatsApp enquiry journeys, AI proposal generation, automated email follow-ups, website chatbots, and simple internal admin automation.',
+    ai_note_2: 'Automation does not replace your business. It helps customers get answers faster and helps you respond with less manual work.',
+    best_for: 'Best for:',
+
+    /* proposal empty (spec wording) */
+    prop_form_empty: 'No services selected yet. You can submit the form and we’ll recommend the best setup for you.',
+
+    /* AI assistant + WhatsApp */
+    assistant_badge: 'AI Assistant', assistant_open: 'Need help choosing?',
+    assistant_title: 'GO AI Assistant',
+    assistant_intro: 'Hi! Tell me what you’re after and I’ll point you to the right starting point.',
+    assistant_restart: 'Start over', assistant_journey: 'Build my proposal', assistant_proposal: 'Request Proposal',
+    wa_help: 'Chat on WhatsApp', wa_start: 'Start a WhatsApp enquiry',
+
+    /* journey flow */
+    j_launch_tag: 'Guided journey', j_launch_title: 'Build your proposal in a few guided steps',
+    j_launch_sub: 'Choose your website, add the services and automation you need, and we’ll prepare a tailored proposal. No checkout — just a clear plan.',
+    j_start: 'Start Your Journey', j_resume: 'Continue your journey',
+    nav_back: 'Back', nav_continue: 'Continue', nav_skip: 'Skip this step', step_label: 'Step', j_continue_without: 'Continue without choosing',
+    select_website: 'Select this website', website_selected: 'Selected',
+    see_more: 'See more', see_less: 'See less', whats_included: 'What’s included',
+    j_step1: 'Choose Your Website', j_step2: 'Add Digital Services', j_step3: 'Add Automation', j_step4: 'Add Support & Growth', j_step5: 'Review Proposal', j_step6: 'Review & Complete',
+    j_short1: 'Website', j_short2: 'Services', j_short3: 'Automation', j_short4: 'Support', j_short5: 'Review', j_short6: 'Complete',
+    j_why1: 'Your website is the foundation — choose the one that fits. You can continue without one if you’re unsure.',
+    j_why2: 'Add the services that bring you enquiries, bookings and repeat customers.',
+    j_why3: 'Let AI handle enquiries, proposals and follow-ups so you respond faster, with less manual work.',
+    j_why4: 'Add ongoing hosting, care and growth to keep everything running smoothly.',
+    j_why5: 'Review everything you’ve selected before we build your proposal.',
+    j_why6: 'Send your selections and we’ll prepare a tailored proposal — no obligation.',
+    j_continue_nowebsite: 'Continue without choosing a website',
+    j_est_oneoff: 'Estimated one-off', j_est_monthly: 'Estimated monthly',
+    j_edit_website: 'Edit website', j_finish: 'Request Proposal', j_exit: 'Exit journey',
+    j_review_title: 'Review your proposal',
+
+    /* assistant guided flow */
+    a_intro: 'Hi! I can help you choose the right website, automation and support setup. What do you need help with first?',
+    a_q_business: 'What type of business is this for?',
+    a_q_havesite: 'Do you already have a website?',
+    a_rec_intro: 'Based on your answers, here’s what I’d recommend:',
+    a_rec_website: 'Recommended website', a_rec_automation: 'Recommended automation', a_rec_support: 'Recommended support',
+    a_continue: 'Continue building setup', a_viewjourney: 'View full journey',
+    a_back: 'Back',
+
+    /* hero */
+    hero_badge: 'Now taking new clients in Greece',
+    hero_headline_a: 'AI-powered websites for ', hero_headline_b: 'local businesses in Greece',
+    hero_sub: 'GO AI builds premium websites, automation, SEO, content and digital systems for villas, restaurants, gyms, salons, tourism businesses and local service providers.',
+    proof_1: 'Websites live in 7 days', proof_2: 'WhatsApp-managed', proof_3: 'Local SEO included', proof_4: 'No tech skills needed',
+
+    /* start your journey */
+    journey_tag: 'Build your proposal',
+    journey_title: 'Start Your Journey',
+    journey_sub: 'Choose what you need and we’ll prepare a tailored proposal. Start with your website — it’s the foundation everything else builds on.',
+    journey_step_1: 'Choose your website', journey_step_2: 'Add the services you want',
+    journey_step_3: 'Add automation or support', journey_step_4: 'Request your proposal',
+    journey_g_websites: 'Step 1 — Choose your website',
+    journey_g_websites_note: 'Your website is the foundation. We recommend starting here.',
+    journey_g_services: 'Step 2 — Add digital services',
+    journey_g_support: 'Step 3 — Add automation & support',
+    journey_review: 'Review your proposal',
+    journey_selected_count: 'item selected', journey_selected_count_plural: 'items selected',
+    not_sure: 'Not sure yet',
+    not_sure_desc: 'Let GO AI recommend the best setup for your business.',
+    foundation_badge: 'Foundation',
+
+    /* sections — home */
+    sec_whatwedo_tag: 'What we do', sec_whatwedo_title: 'Everything your business needs online',
+    sec_whatwedo_desc: 'We handle your entire digital presence — so you can focus on running your business.',
+    sec_industries_tag: 'Industries', sec_industries_title: 'Built for local businesses in Greece',
+    sec_industries_desc: 'We specialise in the businesses that drive Greek tourism and everyday life.',
+    sec_industries_all: 'See all industries',
+    sec_how_tag: 'How it works', sec_how_title: 'From idea to live in 3 steps',
+    sec_how_desc: 'No long briefs, no design reviews, no waiting weeks. We keep it simple.',
+    sec_pricing_tag: 'Pricing', sec_pricing_title: 'Simple, transparent pricing',
+    sec_pricing_desc: 'One clear price. No hidden fees. Cancel any time.',
+    pricing_vat_note: 'Prices shown are starting prices. GO AI is currently VAT exempt. Final pricing may vary depending on the number of pages, content, automation, integrations, and ongoing support required.',
+    pricing_sub_note: 'Ongoing services can be added monthly.',
+    get_started: 'Get started', most_popular: 'Most popular',
+
+    /* services page */
+    svc_tag: 'Services', svc_title: 'Everything your business needs to grow online',
+    svc_desc: 'Websites, automation, SEO, content and ads — all built and managed for you. No agency jargon, no endless meetings. Just results.',
+    svc_websites_title: 'Website Design & Build',
+    svc_websites_desc: 'Your website is the foundation of everything GO AI builds. Start here.',
+    svc_growth_title: 'Digital Growth & Automation Services',
+    svc_growth_desc: 'Add the services that bring you enquiries, bookings and repeat customers.',
+    svc_included: 'What’s included', svc_bestfor: 'Best for:',
+    why_tag: 'Why GO AI', why_title: 'We don’t just build — we run it for you',
+
+    /* industries page */
+    ind_tag: 'Industries', ind_title: 'We know your industry. We know your customers.',
+    ind_desc: 'Every business type has different problems, different customers and different goals. We’ve built specific solutions for the businesses that make Greece work.',
+    ind_whatwebuild: 'What we build for you',
+    ind_getplan: 'Get a free plan for my ',
+    ind_dontsee_tag: 'Don’t see your industry?', ind_dontsee_title: 'We work with any local business in Greece',
+    ind_dontsee_body: 'If you serve customers in Greece and need a better online presence, we can help. Tell us about your business and we’ll send a tailored proposal.',
+
+    /* portfolio */
+    pf_tag: 'Portfolio', pf_title: 'Demo sites built for businesses across Greece',
+    pf_desc: 'Every project is built from scratch for the industry, location and goals of that specific business. Browse by industry to see what we’d build for you.',
+    pf_all: 'All', pf_projects: 'projects', pf_project: 'project', pf_viewdemo: 'View demo site',
+    pf_cta_tag: 'Want to see yours?', pf_cta_title: 'We’ll build a free demo for your business',
+    pf_cta_body: 'Tell us about your business and we’ll create a personalised demo showing exactly what your website could look like — before you pay anything.',
+    pf_cta_btn: 'Request my free demo',
+
+    /* automation */
+    auto_tag: 'AI Automation', auto_title: 'Your business, running on autopilot',
+    auto_desc: 'We build the automations that handle your enquiries, follow-ups, proposals and content — so your business grows even when you’re not at your desk.',
+    auto_also_tag: 'Also included', auto_also_title: 'Content and visibility — handled too',
+    auto_flow_tag: 'The connected system', auto_flow_title: 'Every automation connects to the next',
+    auto_flow_desc: 'From the moment a visitor finds you online to the review they leave after their stay — every step is automated, tracked and working for you.',
+    auto_cta_tag: 'Ready to automate?', auto_cta_title: 'Tell us what you want to automate first',
+    auto_cta_body: 'Most businesses start with WhatsApp automation or email sequences. Tell us about your business and we’ll recommend where to start for maximum impact.',
+    auto_cta_btn: 'Get my automation plan',
+
+    /* generic CTAs */
+    cta_free_tag: 'Free audit', cta_free_title: 'Request your free digital improvement plan',
+    cta_free_body: 'Tell us about your business and we’ll send a personalised plan showing exactly what we’d build — and what it would cost. No commitment.',
+    cta_free_btn: 'Request my free plan', cta_whatsapp: 'Message on WhatsApp', ask_whatsapp: 'Ask on WhatsApp',
+
+    /* proposal / contact */
+    prop_tag: 'Request a proposal', prop_title: 'Request your GO AI proposal',
+    prop_intro: 'Tell us what you need and we’ll prepare a tailored website, automation, and growth recommendation for your business.',
+    prop_support: 'No obligation. Choose the services you’re interested in, add your business details, and GO AI will come back with the best setup.',
+    prop_empty_title: 'No services selected yet',
+    prop_empty_text: 'You can still submit the form and GO AI will recommend the best setup for your business.',
+    r1_t: 'No obligation', r1_b: 'Requesting a proposal does not commit you to anything. It simply helps us understand what you need.',
+    r2_t: 'Tailored recommendation', r2_b: 'GO AI will review your business, selected services and goals before recommending the right setup.',
+    r3_t: 'Prefer to talk?', r3_b: 'You can also message GO AI on WhatsApp if you’d rather discuss your requirements first.',
+    submit_support: 'You’re not committing to anything. We’ll review your details and come back with a tailored recommendation.',
+    f_first: 'First name', f_first_ph: 'Maria', f_last: 'Last name', f_last_ph: 'Papadopoulou',
+    f_location: 'Location', f_location_ph: 'Santorini, Greece',
+    f_needs: 'What do you need help with?', f_needs_ph: 'e.g. a new website + WhatsApp automation',
+    home_cta: 'Home',
+    prop_what_included: 'What would you like included?',
+    prop_g_website: 'Website', prop_g_growth: 'Growth services', prop_g_automation: 'Automation', prop_g_support: 'Support',
+    prop_summary_title: 'Proposal Summary',
+    prop_summary_have: 'Your selected proposal:',
+    prop_summary_notsure: 'GO AI to recommend the best setup for my business.',
+    prop_summary_empty: 'No services selected yet. Choose the services you’re interested in and we’ll build a tailored proposal.',
+    prop_price_note: 'Prices shown are starting prices. GO AI is currently VAT exempt. Final pricing may vary depending on pages, content, automation and ongoing support.',
+    prop_count_label: 'in your proposal',
+    faq_title: 'Common questions',
+
+    /* form */
+    f_details_title: 'Your details',
+    f_name: 'Name', f_name_ph: 'Your full name',
+    f_business: 'Business name', f_business_ph: 'e.g. Santorini Dream Villas',
+    f_email: 'Email', f_email_ph: 'you@example.gr',
+    f_phone: 'Phone / WhatsApp', f_phone_ph: '+30 6900 000000',
+    f_btype: 'Business type', f_btype_ph: 'Select…',
+    f_website: 'Existing website URL', f_website_ph: 'www.example.gr (or none)',
+    f_budget: 'Budget range', f_budget_ph: 'Select…',
+    f_message: 'Message', f_message_ph: 'Tell us about your business goals or anything specific you’d like…',
+    f_required: 'required',
+    f_submit: 'Send Proposal Request',
+    f_whatsapp_q: 'Prefer WhatsApp? Message us directly.',
+    f_whatsapp_btn: 'Message on WhatsApp',
+
+    /* validation + success */
+    v_name: 'Please enter your name.',
+    v_business: 'Please enter your business name.',
+    v_contact: 'Please add an email or phone / WhatsApp number.',
+    v_service: 'Please select at least one option, or choose “Not sure yet”.',
+    v_fix: 'Please check the highlighted fields.',
+    success_title: 'Proposal request sent',
+    success_body: 'Thanks — your proposal request has been received. GO AI will review your selections and come back to you with a tailored recommendation.',
+    success_another: 'Submit another request', success_home: 'Home',
+
+    /* budget options */
+    budget_opts: ['Not sure yet', 'Under €500', '€500 – €1,500', '€1,500 – €3,000', '€3,000+'],
+
+    /* footer */
+    foot_tagline: 'AI-powered websites and automation for businesses in Greece.',
+    foot_whatsapp: 'WhatsApp us', foot_pages: 'Pages', foot_services: 'Services', foot_contact: 'Contact',
+    foot_request: 'Request a Proposal', foot_location: 'Greece',
+    foot_rights: 'All rights reserved.', foot_built: 'Built with AI. Powered by results.',
+    home: 'Home',
+  },
+
+  GR: {
+    nav_services: 'Υπηρεσίες', nav_industries: 'Κλάδοι', nav_portfolio: 'Έργα',
+    nav_automation: 'Αυτοματισμοί', nav_contact: 'Επικοινωνία',
+    request_proposal: 'Ζητήστε Πρόταση', view_services: 'Δείτε τις Υπηρεσίες',
+    menu: 'Μενού',
+
+    add_to_proposal: 'Προσθήκη στην Πρόταση', added_to_proposal: 'Προστέθηκε στην Πρόταση',
+    add_to_proposal_this: 'Προσθήκη στην Πρόταση',
+    add_to_basket: 'Προσθήκη στο Καλάθι', added_to_basket: 'Προστέθηκε στο Καλάθι',
+
+    /* basket */
+    nav_basket: 'Καλάθι', basket_title: 'Το Καλάθι σας',
+    basket_empty_title: 'Το καλάθι σας είναι άδειο.',
+    basket_empty_text: 'Προσθέστε υπηρεσίες ιστοσελίδας, αυτοματισμού, φιλοξενίας ή marketing για να χτίσετε το πακέτο σας.',
+    basket_empty_btn: 'Δείτε τις Υπηρεσίες',
+    basket_oneoff_total: 'Εκτιμώμενο σύνολο εφάπαξ', basket_monthly_total: 'Εκτιμώμενο μηνιαίο σύνολο',
+    basket_remove: 'Αφαίρεση', basket_move: 'Μεταφορά στην Πρόταση', basket_request: 'Ζητήστε Πρόταση',
+    basket_note: 'Ενδεικτικό μόνο — δεν είναι ολοκλήρωση αγοράς. Η τελική τιμή εξαρτάται από τις ανάγκες σας.',
+    basket_items: 'υπηρεσίες', basket_item: 'υπηρεσία',
+
+    /* services intro + AI automation copy */
+    svc_intro_title: 'Υπηρεσίες για ιστοσελίδες, αυτοματισμούς και ανάπτυξη',
+    svc_intro_sub: 'Ξεκινήστε με μια premium ιστοσελίδα και προσθέστε WhatsApp, AI αυτοματισμούς, SEO, φιλοξενία και αναφορές καθώς η επιχείρησή σας μεγαλώνει.',
+    svc_anchor_websites: 'Ιστοσελίδες', svc_anchor_digital: 'Ψηφιακές Υπηρεσίες', svc_anchor_ai: 'AI Αυτοματισμοί', svc_anchor_support: 'Υποστήριξη & Ανάπτυξη',
+    ai_sub: 'Κερδίστε χρόνο, απαντήστε γρηγορότερα και μετατρέψτε τα αιτήματα σε δομημένες ροές εργασίας.',
+    ai_note_1: 'Η GO AI βοηθά τις τοπικές επιχειρήσεις να περάσουν από τα χειροκίνητα αιτήματα σε εξυπνότερες ψηφιακές ροές — διαδρομές αιτημάτων WhatsApp, δημιουργία AI προτάσεων, αυτόματα email follow-up, chatbots ιστοσελίδας και απλό εσωτερικό αυτοματισμό.',
+    ai_note_2: 'Ο αυτοματισμός δεν αντικαθιστά την επιχείρησή σας. Βοηθά τους πελάτες να παίρνουν απαντήσεις γρηγορότερα και εσάς να ανταποκρίνεστε με λιγότερη χειροκίνητη δουλειά.',
+    best_for: 'Ιδανικό για:',
+
+    /* proposal empty (spec wording) */
+    prop_form_empty: 'Δεν έχει επιλεγεί καμία υπηρεσία ακόμα. Μπορείτε να υποβάλετε τη φόρμα και θα σας προτείνουμε την καλύτερη λύση.',
+
+    /* AI assistant + WhatsApp */
+    assistant_badge: 'AI Βοηθός', assistant_open: 'Χρειάζεστε βοήθεια;',
+    assistant_title: 'GO AI Βοηθός',
+    assistant_intro: 'Γεια! Πείτε μου τι ψάχνετε και θα σας δείξω από πού να ξεκινήσετε.',
+    assistant_restart: 'Από την αρχή', assistant_journey: 'Φτιάξτε την πρότασή μου', assistant_proposal: 'Ζητήστε Πρόταση',
+    wa_help: 'Συνομιλία στο WhatsApp', wa_start: 'Ξεκινήστε αίτημα στο WhatsApp',
+
+    /* journey flow */
+    j_launch_tag: 'Καθοδηγούμενη διαδρομή', j_launch_title: 'Φτιάξτε την πρότασή σας σε λίγα καθοδηγούμενα βήματα',
+    j_launch_sub: 'Επιλέξτε ιστοσελίδα, προσθέστε τις υπηρεσίες και τους αυτοματισμούς που χρειάζεστε και θα ετοιμάσουμε μια εξατομικευμένη πρόταση. Χωρίς ταμείο — μόνο ένα ξεκάθαρο πλάνο.',
+    j_start: 'Ξεκινήστε τη Διαδρομή', j_resume: 'Συνεχίστε τη Διαδρομή',
+    nav_back: 'Πίσω', nav_continue: 'Συνέχεια', nav_skip: 'Παράλειψη βήματος', step_label: 'Βήμα', j_continue_without: 'Συνέχεια χωρίς επιλογή',
+    select_website: 'Επιλέξτε αυτή την ιστοσελίδα', website_selected: 'Επιλέχθηκε',
+    see_more: 'Δείτε περισσότερα', see_less: 'Λιγότερα', whats_included: 'Τι περιλαμβάνει',
+    j_step1: 'Επιλέξτε Ιστοσελίδα', j_step2: 'Προσθέστε Ψηφιακές Υπηρεσίες', j_step3: 'Προσθέστε Αυτοματισμούς', j_step4: 'Προσθέστε Υποστήριξη & Ανάπτυξη', j_step5: 'Σύνοψη Πρότασης', j_step6: 'Έλεγχος & Ολοκλήρωση',
+    j_short1: 'Ιστοσελίδα', j_short2: 'Υπηρεσίες', j_short3: 'Αυτοματισμοί', j_short4: 'Υποστήριξη', j_short5: 'Σύνοψη', j_short6: 'Ολοκλήρωση',
+    j_why1: 'Η ιστοσελίδα είναι το θεμέλιο — επιλέξτε αυτή που ταιριάζει. Μπορείτε να συνεχίσετε χωρίς, αν δεν είστε σίγουροι.',
+    j_why2: 'Προσθέστε τις υπηρεσίες που σας φέρνουν αιτήματα, κρατήσεις και επαναλαμβανόμενους πελάτες.',
+    j_why3: 'Αφήστε το AI να αναλάβει αιτήματα, προτάσεις και follow-up, ώστε να απαντάτε γρηγορότερα.',
+    j_why4: 'Προσθέστε φιλοξενία, συντήρηση και ανάπτυξη για να λειτουργούν όλα ομαλά.',
+    j_why5: 'Δείτε όλα όσα επιλέξατε πριν ετοιμάσουμε την πρότασή σας.',
+    j_why6: 'Στείλτε τις επιλογές σας και θα ετοιμάσουμε μια εξατομικευμένη πρόταση — χωρίς δέσμευση.',
+    j_continue_nowebsite: 'Συνέχεια χωρίς επιλογή ιστοσελίδας',
+    j_est_oneoff: 'Εκτιμώμενο εφάπαξ', j_est_monthly: 'Εκτιμώμενο μηνιαίο',
+    j_edit_website: 'Αλλαγή ιστοσελίδας', j_finish: 'Ζητήστε Πρόταση', j_exit: 'Έξοδος',
+    j_review_title: 'Δείτε την πρότασή σας',
+
+    /* assistant guided flow */
+    a_intro: 'Γεια! Μπορώ να σας βοηθήσω να επιλέξετε τη σωστή ιστοσελίδα, αυτοματισμούς και υποστήριξη. Με τι να ξεκινήσουμε;',
+    a_q_business: 'Για τι είδους επιχείρηση είναι;',
+    a_q_havesite: 'Έχετε ήδη ιστοσελίδα;',
+    a_rec_intro: 'Με βάση τις απαντήσεις σας, να τι προτείνω:',
+    a_rec_website: 'Προτεινόμενη ιστοσελίδα', a_rec_automation: 'Προτεινόμενος αυτοματισμός', a_rec_support: 'Προτεινόμενη υποστήριξη',
+    a_continue: 'Συνεχίστε το στήσιμο', a_viewjourney: 'Δείτε όλη τη διαδρομή',
+    a_back: 'Πίσω',
+
+    hero_badge: 'Δεχόμαστε νέους πελάτες στην Ελλάδα',
+    hero_headline_a: 'AI-powered ιστοσελίδες για ', hero_headline_b: 'τοπικές επιχειρήσεις στην Ελλάδα',
+    hero_sub: 'Η GO AI δημιουργεί premium ιστοσελίδες, αυτοματισμούς, SEO, περιεχόμενο και ψηφιακά συστήματα για βίλες, εστιατόρια, γυμναστήρια, κομμωτήρια, τουριστικές επιχειρήσεις και τοπικούς επαγγελματίες.',
+    proof_1: 'Ιστοσελίδες σε 7 ημέρες', proof_2: 'Διαχείριση μέσω WhatsApp', proof_3: 'Τοπικό SEO περιλαμβάνεται', proof_4: 'Χωρίς τεχνικές γνώσεις',
+
+    journey_tag: 'Φτιάξτε την πρότασή σας',
+    journey_title: 'Ξεκινήστε τη Διαδρομή σας',
+    journey_sub: 'Επιλέξτε τι χρειάζεστε και θα ετοιμάσουμε μια εξατομικευμένη πρόταση. Ξεκινήστε με την ιστοσελίδα σας — είναι το θεμέλιο για όλα τα υπόλοιπα.',
+    journey_step_1: 'Επιλέξτε την ιστοσελίδα σας', journey_step_2: 'Προσθέστε τις υπηρεσίες που θέλετε',
+    journey_step_3: 'Προσθέστε αυτοματισμούς ή υποστήριξη', journey_step_4: 'Ζητήστε την πρότασή σας',
+    journey_g_websites: 'Βήμα 1 — Επιλέξτε την ιστοσελίδα σας',
+    journey_g_websites_note: 'Η ιστοσελίδα σας είναι το θεμέλιο. Προτείνουμε να ξεκινήσετε από εδώ.',
+    journey_g_services: 'Βήμα 2 — Προσθέστε ψηφιακές υπηρεσίες',
+    journey_g_support: 'Βήμα 3 — Προσθέστε αυτοματισμούς & υποστήριξη',
+    journey_review: 'Δείτε την πρότασή σας',
+    journey_selected_count: 'επιλογή', journey_selected_count_plural: 'επιλογές',
+    not_sure: 'Δεν είμαι σίγουρος/η ακόμα',
+    not_sure_desc: 'Αφήστε τη GO AI να προτείνει την καλύτερη λύση για την επιχείρησή σας.',
+    foundation_badge: 'Θεμέλιο',
+
+    sec_whatwedo_tag: 'Τι κάνουμε', sec_whatwedo_title: 'Ό,τι χρειάζεται η επιχείρησή σας online',
+    sec_whatwedo_desc: 'Αναλαμβάνουμε όλη την ψηφιακή σας παρουσία — για να εστιάσετε εσείς στην επιχείρησή σας.',
+    sec_industries_tag: 'Κλάδοι', sec_industries_title: 'Φτιαγμένο για τοπικές επιχειρήσεις στην Ελλάδα',
+    sec_industries_desc: 'Ειδικευόμαστε στις επιχειρήσεις που κινούν τον ελληνικό τουρισμό και την καθημερινότητα.',
+    sec_industries_all: 'Δείτε όλους τους κλάδους',
+    sec_how_tag: 'Πώς λειτουργεί', sec_how_title: 'Από την ιδέα στο online σε 3 βήματα',
+    sec_how_desc: 'Χωρίς μεγάλα briefs, χωρίς ατελείωτες παρουσιάσεις, χωρίς αναμονή εβδομάδων. Απλά πράγματα.',
+    sec_pricing_tag: 'Τιμές', sec_pricing_title: 'Απλές, διαφανείς τιμές',
+    sec_pricing_desc: 'Μία ξεκάθαρη τιμή. Χωρίς κρυφές χρεώσεις. Ακύρωση οποτεδήποτε.',
+    pricing_vat_note: 'Οι τιμές που εμφανίζονται είναι αρχικές. Η GO AI είναι επί του παρόντος απαλλαγμένη από ΦΠΑ. Η τελική τιμή μπορεί να διαφέρει ανάλογα με τον αριθμό σελίδων, το περιεχόμενο, τους αυτοματισμούς, τις ενσωματώσεις και την υποστήριξη που απαιτούνται.',
+    pricing_sub_note: 'Οι συνεχόμενες υπηρεσίες μπορούν να προστεθούν μηνιαία.',
+    get_started: 'Ξεκινήστε', most_popular: 'Πιο δημοφιλές',
+
+    svc_tag: 'Υπηρεσίες', svc_title: 'Ό,τι χρειάζεται η επιχείρησή σας για να αναπτυχθεί online',
+    svc_desc: 'Ιστοσελίδες, αυτοματισμοί, SEO, περιεχόμενο και διαφημίσεις — όλα φτιαγμένα και διαχειριζόμενα για εσάς. Χωρίς ορολογίες, χωρίς ατελείωτες συναντήσεις. Μόνο αποτελέσματα.',
+    svc_websites_title: 'Σχεδιασμός & Κατασκευή Ιστοσελίδων',
+    svc_websites_desc: 'Η ιστοσελίδα σας είναι το θεμέλιο όλων όσων φτιάχνει η GO AI. Ξεκινήστε από εδώ.',
+    svc_growth_title: 'Υπηρεσίες Ψηφιακής Ανάπτυξης & Αυτοματισμού',
+    svc_growth_desc: 'Προσθέστε τις υπηρεσίες που σας φέρνουν αιτήματα, κρατήσεις και επαναλαμβανόμενους πελάτες.',
+    svc_included: 'Τι περιλαμβάνει', svc_bestfor: 'Ιδανικό για:',
+    why_tag: 'Γιατί GO AI', why_title: 'Δεν φτιάχνουμε απλά — το τρέχουμε για εσάς',
+
+    ind_tag: 'Κλάδοι', ind_title: 'Ξέρουμε τον κλάδο σας. Ξέρουμε τους πελάτες σας.',
+    ind_desc: 'Κάθε τύπος επιχείρησης έχει διαφορετικά προβλήματα, διαφορετικούς πελάτες και διαφορετικούς στόχους. Έχουμε φτιάξει συγκεκριμένες λύσεις για τις επιχειρήσεις που κρατούν την Ελλάδα ζωντανή.',
+    ind_whatwebuild: 'Τι φτιάχνουμε για εσάς',
+    ind_getplan: 'Δωρεάν πλάνο για ',
+    ind_dontsee_tag: 'Δεν βλέπετε τον κλάδο σας;', ind_dontsee_title: 'Συνεργαζόμαστε με κάθε τοπική επιχείρηση στην Ελλάδα',
+    ind_dontsee_body: 'Αν εξυπηρετείτε πελάτες στην Ελλάδα και χρειάζεστε καλύτερη online παρουσία, μπορούμε να βοηθήσουμε. Πείτε μας για την επιχείρησή σας και θα στείλουμε μια εξατομικευμένη πρόταση.',
+
+    pf_tag: 'Έργα', pf_title: 'Demo ιστοσελίδες για επιχειρήσεις σε όλη την Ελλάδα',
+    pf_desc: 'Κάθε έργο φτιάχνεται από την αρχή για τον κλάδο, την περιοχή και τους στόχους της κάθε επιχείρησης. Δείτε ανά κλάδο τι θα φτιάχναμε για εσάς.',
+    pf_all: 'Όλα', pf_projects: 'έργα', pf_project: 'έργο', pf_viewdemo: 'Δείτε το demo',
+    pf_cta_tag: 'Θέλετε να δείτε το δικό σας;', pf_cta_title: 'Φτιάχνουμε ένα δωρεάν demo για την επιχείρησή σας',
+    pf_cta_body: 'Πείτε μας για την επιχείρησή σας και θα δημιουργήσουμε ένα εξατομικευμένο demo που δείχνει ακριβώς πώς θα μπορούσε να είναι η ιστοσελίδα σας — πριν πληρώσετε οτιδήποτε.',
+    pf_cta_btn: 'Ζητήστε το δωρεάν demo',
+
+    auto_tag: 'AI Αυτοματισμοί', auto_title: 'Η επιχείρησή σας στον αυτόματο πιλότο',
+    auto_desc: 'Φτιάχνουμε τους αυτοματισμούς που διαχειρίζονται τα αιτήματα, τα follow-up, τις προτάσεις και το περιεχόμενό σας — ώστε η επιχείρησή σας να αναπτύσσεται ακόμα κι όταν δεν είστε στο γραφείο.',
+    auto_also_tag: 'Επίσης περιλαμβάνεται', auto_also_title: 'Περιεχόμενο και προβολή — τα αναλαμβάνουμε κι αυτά',
+    auto_flow_tag: 'Το συνδεδεμένο σύστημα', auto_flow_title: 'Κάθε αυτοματισμός συνδέεται με τον επόμενο',
+    auto_flow_desc: 'Από τη στιγμή που ένας επισκέπτης σας βρίσκει online μέχρι την αξιολόγηση που αφήνει μετά τη διαμονή του — κάθε βήμα είναι αυτοματοποιημένο, καταγεγραμμένο και δουλεύει για εσάς.',
+    auto_cta_tag: 'Έτοιμοι για αυτοματισμό;', auto_cta_title: 'Πείτε μας τι θέλετε να αυτοματοποιήσετε πρώτα',
+    auto_cta_body: 'Οι περισσότερες επιχειρήσεις ξεκινούν με αυτοματισμό WhatsApp ή email. Πείτε μας για την επιχείρησή σας και θα προτείνουμε από πού να ξεκινήσετε για το μέγιστο αποτέλεσμα.',
+    auto_cta_btn: 'Το πλάνο αυτοματισμού μου',
+
+    cta_free_tag: 'Δωρεάν αξιολόγηση', cta_free_title: 'Ζητήστε το δωρεάν πλάνο ψηφιακής βελτίωσης',
+    cta_free_body: 'Πείτε μας για την επιχείρησή σας και θα στείλουμε ένα εξατομικευμένο πλάνο που δείχνει ακριβώς τι θα φτιάχναμε — και πόσο θα κόστιζε. Χωρίς δέσμευση.',
+    cta_free_btn: 'Ζητήστε το δωρεάν πλάνο', cta_whatsapp: 'Μήνυμα στο WhatsApp', ask_whatsapp: 'Ρωτήστε στο WhatsApp',
+
+    prop_tag: 'Ζητήστε πρόταση', prop_title: 'Ζητήστε την πρότασή σας από τη GO AI',
+    prop_intro: 'Πείτε μας τι χρειάζεστε και θα ετοιμάσουμε μια εξατομικευμένη πρόταση για ιστοσελίδα, αυτοματισμούς και ανάπτυξη για την επιχείρησή σας.',
+    prop_support: 'Χωρίς δέσμευση. Επιλέξτε τις υπηρεσίες που σας ενδιαφέρουν, προσθέστε τα στοιχεία σας και η GO AI θα επανέλθει με την καλύτερη λύση.',
+    prop_empty_title: 'Δεν έχει επιλεγεί καμία υπηρεσία ακόμα',
+    prop_empty_text: 'Μπορείτε να υποβάλετε τη φόρμα και η GO AI θα προτείνει την καλύτερη λύση για την επιχείρησή σας.',
+    r1_t: 'Χωρίς δέσμευση', r1_b: 'Το αίτημα πρότασης δεν σας δεσμεύει σε τίποτα. Απλώς μας βοηθά να καταλάβουμε τι χρειάζεστε.',
+    r2_t: 'Εξατομικευμένη πρόταση', r2_b: 'Η GO AI θα εξετάσει την επιχείρηση, τις επιλεγμένες υπηρεσίες και τους στόχους σας πριν προτείνει τη σωστή λύση.',
+    r3_t: 'Προτιμάτε να μιλήσουμε;', r3_b: 'Μπορείτε επίσης να στείλετε μήνυμα στη GO AI στο WhatsApp αν προτιμάτε να συζητήσουμε πρώτα.',
+    submit_support: 'Δεν δεσμεύεστε σε τίποτα. Θα εξετάσουμε τα στοιχεία σας και θα επανέλθουμε με μια εξατομικευμένη πρόταση.',
+    f_first: 'Όνομα', f_first_ph: 'Μαρία', f_last: 'Επώνυμο', f_last_ph: 'Παπαδοπούλου',
+    f_location: 'Περιοχή', f_location_ph: 'Σαντορίνη, Ελλάδα',
+    f_needs: 'Με τι χρειάζεστε βοήθεια;', f_needs_ph: 'π.χ. νέα ιστοσελίδα + WhatsApp αυτοματισμό',
+    home_cta: 'Αρχική',
+    prop_what_included: 'Τι θα θέλατε να συμπεριληφθεί;',
+    prop_g_website: 'Ιστοσελίδα', prop_g_growth: 'Υπηρεσίες ανάπτυξης', prop_g_automation: 'Αυτοματισμοί', prop_g_support: 'Υποστήριξη',
+    prop_summary_title: 'Σύνοψη Πρότασης',
+    prop_summary_have: 'Η επιλεγμένη πρότασή σας:',
+    prop_summary_notsure: 'Η GO AI να προτείνει την καλύτερη λύση για την επιχείρησή μου.',
+    prop_summary_empty: 'Δεν έχει επιλεγεί καμία υπηρεσία ακόμα. Επιλέξτε τις υπηρεσίες που σας ενδιαφέρουν και θα ετοιμάσουμε μια εξατομικευμένη πρόταση.',
+    prop_price_note: 'Οι τιμές που εμφανίζονται είναι αρχικές. Η GO AI είναι επί του παρόντος απαλλαγμένη από ΦΠΑ. Η τελική τιμή μπορεί να διαφέρει ανάλογα με σελίδες, περιεχόμενο, αυτοματισμούς και υποστήριξη.',
+    prop_count_label: 'στην πρότασή σας',
+    faq_title: 'Συχνές ερωτήσεις',
+
+    f_details_title: 'Τα στοιχεία σας',
+    f_name: 'Όνομα', f_name_ph: 'Το ονοματεπώνυμό σας',
+    f_business: 'Επωνυμία επιχείρησης', f_business_ph: 'π.χ. Santorini Dream Villas',
+    f_email: 'Email', f_email_ph: 'you@example.gr',
+    f_phone: 'Τηλέφωνο / WhatsApp', f_phone_ph: '+30 6900 000000',
+    f_btype: 'Τύπος επιχείρησης', f_btype_ph: 'Επιλέξτε…',
+    f_website: 'URL υπάρχουσας ιστοσελίδας', f_website_ph: 'www.example.gr (ή καμία)',
+    f_budget: 'Εύρος προϋπολογισμού', f_budget_ph: 'Επιλέξτε…',
+    f_message: 'Μήνυμα', f_message_ph: 'Πείτε μας για τους στόχους σας ή οτιδήποτε συγκεκριμένο θέλετε…',
+    f_required: 'υποχρεωτικό',
+    f_submit: 'Αποστολή Αιτήματος Πρότασης',
+    f_whatsapp_q: 'Προτιμάτε WhatsApp; Στείλτε μας μήνυμα απευθείας.',
+    f_whatsapp_btn: 'Μήνυμα στο WhatsApp',
+
+    v_name: 'Παρακαλούμε εισάγετε το όνομά σας.',
+    v_business: 'Παρακαλούμε εισάγετε την επωνυμία της επιχείρησής σας.',
+    v_contact: 'Παρακαλούμε προσθέστε email ή τηλέφωνο / WhatsApp.',
+    v_service: 'Παρακαλούμε επιλέξτε τουλάχιστον μία επιλογή ή «Δεν είμαι σίγουρος/η ακόμα».',
+    v_fix: 'Παρακαλούμε ελέγξτε τα επισημασμένα πεδία.',
+    success_title: 'Το αίτημα πρότασης στάλθηκε',
+    success_body: 'Ευχαριστούμε — λάβαμε το αίτημα πρότασής σας. Η GO AI θα εξετάσει τις επιλογές σας και θα επανέλθει με μια εξατομικευμένη πρόταση.',
+    success_another: 'Νέο αίτημα', success_home: 'Αρχική',
+
+    budget_opts: ['Δεν είμαι σίγουρος/η ακόμα', 'Κάτω από €500', '€500 – €1.500', '€1.500 – €3.000', '€3.000+'],
+
+    foot_tagline: 'AI-powered ιστοσελίδες και αυτοματισμοί για επιχειρήσεις στην Ελλάδα.',
+    foot_whatsapp: 'WhatsApp', foot_pages: 'Σελίδες', foot_services: 'Υπηρεσίες', foot_contact: 'Επικοινωνία',
+    foot_request: 'Ζητήστε Πρόταση', foot_location: 'Ελλάδα',
+    foot_rights: 'Με επιφύλαξη παντός δικαιώματος.', foot_built: 'Φτιαγμένο με AI. Με γνώμονα τα αποτελέσματα.',
+    home: 'Αρχική',
+  },
+};
+
+window.T = T;

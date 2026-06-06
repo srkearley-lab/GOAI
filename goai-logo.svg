@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" fill="none" role="img" aria-label="GO AI">
+  <defs>
+    <linearGradient id="goaiGrad" x1="125" y1="170" x2="615" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3B34F0"></stop>
+      <stop offset="0.5" stop-color="#5B34E6"></stop>
+      <stop offset="1" stop-color="#9B2EE0"></stop>
+    </linearGradient>
+  </defs>
+
+  <g stroke="url(#goaiGrad)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <circle cx="485" cy="170" r="130"></circle>
+    
+    <path d="M329.6 63.5 A130 130 0 1 1 277.6 42"></path>
+    
+    <path d="M196 186 L292 176" stroke-width="31"></path>
+  </g>
+
+  
+  <g stroke="#14181D" stroke-width="34" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M672 298 L723 62 L774 298"></path>
+    <path d="M842 62 L842 298"></path>
+  </g>
+</svg>
