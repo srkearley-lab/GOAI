@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { SITE_NAME, SITE_URL } from '@/lib/seo';
 import { fontVariables } from '@/lib/fonts';
 import { ThemeProvider } from '@/lib/theme';
 import { AppProvider } from '@/lib/store';
@@ -7,18 +8,44 @@ import { Navbar } from '@/components/chrome/Navbar';
 import { Footer } from '@/components/chrome/Footer';
 import { AIAssistant } from '@/components/assistant/AIAssistant';
 
+const TITLE_DEFAULT = 'GO AI — Ιστοσελίδες & Αυτοματισμοί AI για επιχειρήσεις';
+const DESCRIPTION =
+  'Premium ιστοσελίδες, WhatsApp bots και email αυτοματισμοί για επιχειρήσεις στην Ελλάδα — έτοιμα σε λίγες ημέρες. Διαχειριστείτε τα πάντα από το κινητό σας.';
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
-  title: {
-    default: 'GO AI — AI-powered websites & automation for businesses in Greece',
-    template: '%s · GO AI',
+  metadataBase: new URL(SITE_URL),
+  title: { default: TITLE_DEFAULT, template: '%s · GO AI' },
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: '/goai-logo.png',
+    shortcut: '/favicon.svg',
   },
-  description:
-    'From beautiful websites to WhatsApp bots and email flows — we build your entire digital presence in under 7 days. You manage everything from your phone.',
-  icons: { icon: '/favicon.svg' },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'el_GR',
+    url: '/',
+    title: TITLE_DEFAULT,
+    description: DESCRIPTION,
+  },
+  twitter: { card: 'summary_large_image', title: TITLE_DEFAULT, description: DESCRIPTION },
   // The site has its own EN/GR switcher; disable browser auto-translation,
   // which mutates the DOM and crashes React (insertBefore NotFoundError).
   other: { google: 'notranslate' },
+};
+
+// Organization structured data (rich-result / knowledge-panel signals).
+const ORG_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/goai-logo.png`,
+  description: DESCRIPTION,
+  areaServed: { '@type': 'Country', name: 'Greece' },
+  knowsLanguage: ['el', 'en'],
 };
 
 // Pre-paint: apply persisted theme/accent before hydration to avoid FOUC.
@@ -28,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="el" translate="no" className={fontVariables} data-theme="light" suppressHydrationWarning>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }} />
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <ThemeProvider>
           <AppProvider>
