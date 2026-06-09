@@ -1,35 +1,42 @@
 'use client';
 /* ============================================================
-   GO AI — Industries page (bilingual)
+   GO AI — Industries page (premium redesign, matches /services)
+   Split video hero · industries overview grid · editorial
+   per-industry deep-dives · Santorini-wash CTA.
    ============================================================ */
-import { useRouter } from 'next/navigation';
 import { Icon } from '@/components/ui/Icon';
 import { Reveal } from '@/components/ui/Reveal';
 import { Eyebrow } from '@/components/ui/Eyebrow';
-import { Section } from '@/components/ui/Section';
-import { PageHero } from '@/components/ui/PageHero';
 import { Link } from '@/components/ui/Link';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import { useApp } from '@/lib/store';
+import { RequestProposalButton } from '@/components/chrome/RequestProposalButton';
 import { SITE as DATA } from '@/data/content';
 import { WHATSAPP } from '@/lib/whatsapp';
-import type { IndustryItem, IndustryBuild, Bilingual } from '@/types';
+import type { IndustryItem, IndustryBuild, IndustryShort, Bilingual } from '@/types';
 
-function QuickNav() {
+function scrollToSection(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduce = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: reduce ? 'auto' : 'smooth' });
+  try { history.pushState(null, '', '#' + id); } catch {}
+  el.setAttribute('tabindex', '-1');
+  el.focus({ preventScroll: true });
+}
+
+function OverviewTile({ item, delay }: { item: IndustryShort; delay: number }) {
   const { tr } = useApp();
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 130, behavior: 'smooth' });
-  };
+  const to = item.to || '';
   return (
-    <div style={{ position: 'sticky', top: 72, zIndex: 40, background: 'var(--nav-bg)', backdropFilter: 'blur(14px) saturate(1.4)', WebkitBackdropFilter: 'blur(14px) saturate(1.4)', borderBottom: '1px solid var(--line)' }}>
-      <div className="container" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, padding: '14px var(--space-8)' }}>
-        {DATA.industries.map((ind) => (
-          <button key={ind.id} onClick={() => scrollTo(ind.id)} className="chip" style={{ cursor: 'pointer', background: 'var(--surface)' }}>
-            <Icon name={ind.icon} size={13} /> {tr(ind.label)}
-          </button>
-        ))}
-      </div>
-    </div>
+    <Reveal delay={delay} style={{ display: 'flex' }}>
+      <Link to={'#' + to} onClick={(e) => { e.preventDefault(); scrollToSection(to); }} className="ind-tile" style={{ width: '100%' }}>
+        <span className="ind-arrow"><Icon name="ArrowUpRight" size={18} /></span>
+        <span className="glass-badge"><Icon name={item.icon} size={24} /></span>
+        <span className="ind-label">{tr(item.label)}</span>
+        {item.tagline && <span className="ind-tagline">{tr(item.tagline)}</span>}
+      </Link>
+    </Reveal>
   );
 }
 
@@ -48,28 +55,30 @@ function FeatureRow({ b, tr }: { b: IndustryBuild; tr: (obj: Bilingual | string 
 function IndustrySection({ industry, index }: { industry: IndustryItem; index: number }) {
   const { tr, t } = useApp();
   const isAlt = index % 2 !== 0;
+  const num = String(index + 1).padStart(2, '0');
   return (
-    <section id={industry.id} style={{ padding: 'var(--section-y) 0', background: isAlt ? 'var(--surface-2)' : 'var(--bg)', borderBottom: '1px solid var(--line)', scrollMarginTop: 130 }}>
-      <div className="container industry-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-16)', alignItems: 'center' }}>
-        <Reveal style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
-            <span className="icon-badge"><Icon name={industry.icon} size={22} /></span>
+    <section id={industry.id} className={isAlt ? 'ind-flip' : ''} style={{ padding: 'var(--section-y) 0', background: isAlt ? 'var(--surface-2)' : 'var(--bg)', borderBottom: '1px solid var(--line)', scrollMarginTop: 100 }}>
+      <div className="container industry-grid">
+        <Reveal className="ind-feat-copy" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
+            <span className="ind-num">{num}</span>
+            <span className="glass-badge"><Icon name={industry.icon} size={24} /></span>
             <Eyebrow>{tr(industry.label)}</Eyebrow>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, lineHeight: 1.12, letterSpacing: '-0.025em', color: 'var(--ink)' }}>{tr(industry.tagline)}</h2>
             <p style={{ fontSize: 'var(--text-base)', lineHeight: 1.7, color: 'var(--ink-2)' }}>{tr(industry.description)}</p>
           </div>
-          <blockquote style={{ margin: 0, borderLeft: '3px solid var(--brand-line)', paddingLeft: 'var(--space-5)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <Icon name="Quote" size={18} style={{ color: 'var(--brand-ink)' }} />
-            <p style={{ fontSize: 'var(--text-base)', fontStyle: 'italic', lineHeight: 1.6, color: 'var(--ink-2)' }}>{tr(industry.painPoint)}</p>
-          </blockquote>
+          <figure className="ind-quote">
+            <Icon name="Quote" size={22} className="ind-quote-glyph" />
+            <p>{tr(industry.painPoint)}</p>
+          </figure>
           <Link to="/contact" data-action="request-proposal" className="link-arrow" style={{ alignSelf: 'flex-start' }}>
             {t('ind_getplan')}{tr(industry.label).toLowerCase()} <Icon name="ArrowRight" size={15} />
           </Link>
         </Reveal>
 
-        <Reveal delay={80} className="card" style={{ padding: 'var(--space-8)', display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
+        <Reveal delay={80} className="card card-hover ind-feat-panel" style={{ padding: 'var(--space-8)', display: 'flex', flexDirection: 'column', gap: 'var(--space-6)' }}>
           <p style={{ fontSize: 'var(--text-xs)', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--ink-3)' }}>{t('ind_whatwebuild')}</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)' }}>
             {industry.builds.map((b, i) => <FeatureRow key={i} b={b} tr={tr} />)}
@@ -80,69 +89,98 @@ function IndustrySection({ industry, index }: { industry: IndustryItem; index: n
   );
 }
 
-/* Request Proposal button with live count badge */
-function RequestProposalButton({ size = 'sm', full = false, onNavigate }: { size?: 'sm' | 'md'; full?: boolean; onNavigate?: () => void }) {
-  const { t, count } = useApp();
-  const router = useRouter();
-  const go = (e?: React.MouseEvent) => {
-    e && e.preventDefault();
-    onNavigate && onNavigate();
-    router.push('/contact');
-    setTimeout(() => {
-      const el = document.getElementById('proposal-form');
-      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
-    }, 140);
-  };
-  return (
-    <button onClick={go} data-action="request-proposal" data-count={count}
-      className={'btn btn-primary ' + (size === 'sm' ? 'btn-sm' : '') + (full ? ' full' : '')}
-      style={{ position: 'relative', overflow: 'visible' }}>
-      {t('request_proposal')}
-      {count > 0 && (
-        <span aria-label={count + ' selected'} style={{
-          position: 'absolute', top: -7, right: -7, minWidth: 22, height: 22, padding: '0 6px',
-          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          background: 'var(--gold)', color: '#1a1206', borderRadius: 'var(--radius-full)',
-          fontSize: 12, fontWeight: 800, lineHeight: 1, border: '2px solid var(--surface)',
-          boxShadow: 'var(--shadow-sm)',
-        }}>{count}</span>
-      )}
-    </button>
-  );
-}
-
-/* ---- Reusable final CTA (translation-key driven) ---- */
-function FinalCTA({ tagKey, titleKey, bodyKey, primaryKey, bg = 'accent' }: { tagKey: string; titleKey: string; bodyKey: string; primaryKey: string; bg?: string }) {
-  const { t } = useApp();
-  return (
-    <Section bg={bg} style={{ borderTop: '1px solid var(--line)' }}>
-      <Reveal style={{ maxWidth: 'var(--width-md)', margin: '0 auto', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-8)' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-4)' }}>
-          <Eyebrow tone="gold" dot>{t(tagKey)}</Eyebrow>
-          <h2 style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.025em', color: 'var(--ink)', maxWidth: '22ch' }}>{t(titleKey)}</h2>
-          <p style={{ fontSize: 'var(--text-md)', lineHeight: 1.6, color: 'var(--ink-2)', maxWidth: '48ch' }}>{t(bodyKey)}</p>
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
-          <RequestProposalButton size="md" />
-          <a href={WHATSAPP} data-action="whatsapp-contact" className="btn btn-wa btn-lg"><Icon name="MessageCircle" size={18} /> {t('cta_whatsapp')}</a>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
 export default function Industries() {
-  const { t } = useApp();
+  const { t, tr } = useApp();
+  const count = DATA.industriesShort.length;
   return (
     <main>
-      <PageHero tag={t('ind_tag')} title={t('ind_title')} description={t('ind_desc')} />
-      <QuickNav />
+      {/* Hero — split: copy left, video right (parity with /services) */}
+      <section className="hero-grid" style={{ position: 'relative', overflow: 'hidden', paddingTop: 120, paddingBottom: 'var(--space-16)', borderBottom: '1px solid var(--line)' }}>
+        <div className="hero-aurora" aria-hidden="true" />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: 'linear-gradient(180deg, transparent 55%, var(--bg) 100%)', pointerEvents: 'none' }} />
+        <div className="container hero-split" style={{ position: 'relative', zIndex: 1 }}>
+          <Reveal className="hero-copy">
+            <Eyebrow dot>{t('ind_tag')}</Eyebrow>
+            <h1 style={{ fontSize: 'clamp(2rem, 4.4vw, 3rem)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-0.03em', color: 'var(--ink)' }}>{t('ind_title')}</h1>
+            <p style={{ fontSize: 'var(--text-md)', lineHeight: 1.6, color: 'var(--ink-2)', maxWidth: '42ch' }}>{t('ind_hero_sub')}</p>
+            <div className="hero-row">
+              <RequestProposalButton size="md" />
+              <a href={WHATSAPP} data-action="whatsapp-contact" className="btn btn-secondary btn-lg"><Icon name="MessageCircle" size={18} /> {t('cta_whatsapp')}</a>
+            </div>
+            <div className="hero-proof">
+              {DATA.heroProofKeys.map((k) => (
+                <span key={k} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-sm)', color: 'var(--ink-3)', fontWeight: 500 }}>
+                  <Icon name="Check" size={15} style={{ color: 'var(--brand-ink)' }} /> {t(k)}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={120} className="hero-visual" style={{ position: 'relative' }}>
+            <div className="svc-hero-glow" aria-hidden="true" />
+            <div className="svc-hero-video">
+              <video ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline preload="auto" aria-label="GO AI intro">
+                <source src="/intro-video.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <span className="ind-fc fc-top"><Icon name="Sparkles" size={13} /> {tr({ EN: count + ' industries', GR: count + ' κλάδοι' })}</span>
+            <span className="ind-fc fc-bot"><Icon name="MapPin" size={13} /> {t('ind_hero_chip2')}</span>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Industries overview grid — jump map */}
+      <section className="hero-grid" style={{ position: 'relative', overflow: 'hidden', padding: 'var(--section-y) 0', borderBottom: '1px solid var(--line)' }}>
+        <div className="how-glow" aria-hidden="true" />
+        <div className="container" style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
+          <SectionHeader tag={t('ind_overview_tag')} title={t('ind_overview_title')} description={t('ind_overview_desc')} />
+          <div className="ind-grid">
+            {DATA.industriesShort.map((item, i) => <OverviewTile key={item.to} item={item} delay={i * 50} />)}
+          </div>
+        </div>
+      </section>
+
+      {/* Per-industry editorial deep-dives */}
       {DATA.industries.map((ind, i) => <IndustrySection key={ind.id} industry={ind} index={i} />)}
 
-      <FinalCTA tagKey="ind_dontsee_tag" titleKey="ind_dontsee_title" bodyKey="ind_dontsee_body" primaryKey="cta_free_btn" />
+      {/* Final CTA — Santorini wash */}
+      <section className="cta-section">
+        <div className="cta-bg" aria-hidden="true" />
+        <div className="container">
+          <Reveal className="cta-content">
+            <div className="cta-head">
+              <Eyebrow tone="gold" dot>{t('ind_dontsee_tag')}</Eyebrow>
+              <h2>{t('ind_dontsee_title')}</h2>
+              <p>{t('ind_dontsee_body')}</p>
+            </div>
+            <div className="cta-actions">
+              <RequestProposalButton size="md" />
+              <a href={WHATSAPP} data-action="whatsapp-contact" className="btn btn-wa btn-lg"><Icon name="MessageCircle" size={18} /> {t('cta_whatsapp')}</a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <style>{`
-        @media (max-width: 860px) { .industry-grid { grid-template-columns: 1fr !important; gap: var(--space-10) !important; } }
+        /* video frame + glow (parity with /services) */
+        .svc-hero-glow { position: absolute; inset: -12% -6% -16% -6%; z-index: 0; pointer-events: none; filter: blur(46px); opacity: 0.5; background: radial-gradient(60% 70% at 58% 32%, color-mix(in srgb, var(--brand) 24%, transparent), transparent 70%); }
+        .svc-hero-video { position: relative; z-index: 1; border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); background: var(--surface); animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
+        .svc-hero-video video { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+        /* floating proof chips over the video */
+        .ind-fc { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; font-size: var(--text-xs); font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--surface) 90%, transparent); border: 1px solid var(--line-2); border-radius: var(--radius-full); box-shadow: var(--shadow-md); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: heroFloat 6.5s ease-in-out infinite; }
+        .ind-fc svg { color: var(--brand-ink); }
+        .ind-fc.fc-top { top: 18px; left: -12px; }
+        .ind-fc.fc-bot { bottom: 20px; right: -12px; animation-delay: -3s; }
+        /* editorial deep-dive */
+        .industry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: center; }
+        .ind-num { font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; color: var(--brand-ink); opacity: 0.85; }
+        .ind-quote { position: relative; margin: 0; padding: var(--space-5); border-left: 3px solid var(--brand-line); border-radius: var(--radius-md); background: var(--brand-soft); display: flex; flex-direction: column; gap: 8px; }
+        .ind-quote .ind-quote-glyph { color: var(--brand-ink); opacity: 0.55; }
+        .ind-quote p { font-size: var(--text-base); font-style: italic; line-height: 1.6; color: var(--ink); margin: 0; }
+        @media (prefers-reduced-motion: reduce) { .svc-hero-video, .ind-fc { animation: none; } }
+        @media (min-width: 861px) { .ind-flip .ind-feat-copy { order: 2; } .ind-flip .ind-feat-panel { order: 1; } }
+        @media (max-width: 900px) { .svc-hero-video { max-width: 560px; margin: 0 auto; } .svc-hero-video video { aspect-ratio: 16 / 9; } .ind-fc { display: none; } }
+        @media (max-width: 860px) { .industry-grid { grid-template-columns: 1fr !important; gap: var(--space-10) !important; } .ind-flip .ind-feat-copy, .ind-flip .ind-feat-panel { order: 0 !important; } }
       `}</style>
     </main>
   );

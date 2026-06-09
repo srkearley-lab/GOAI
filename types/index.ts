@@ -35,7 +35,7 @@ export type CatalogId = string;
 export type SelectableId = CatalogId;
 
 /* ---------------- Site content (data/content.ts) ---------------- */
-export interface ServiceItem { icon: IconName; title: Bilingual; description: Bilingual; features?: Bilingual[]; }
+export interface ServiceItem { icon: IconName; title: Bilingual; description: Bilingual; features?: Bilingual[]; to?: string; }
 export interface IndustryShort { icon: IconName; to?: string; label: Bilingual; tagline?: Bilingual; }
 export interface StepItem { icon?: IconName; number: number; title: Bilingual; description?: Bilingual; body?: Bilingual; }
 export interface PackageItem {

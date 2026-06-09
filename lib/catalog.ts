@@ -143,6 +143,28 @@ export const FEATURES: Record<string, { EN: string[]; GR: string[] }> = {
   'email-automation': { EN: ['Welcome sequence', 'Follow-ups & reminders', 'Review requests', 'Newsletter template'], GR: ['Ακολουθία καλωσορίσματος', 'Follow-up & υπενθυμίσεις', 'Αιτήματα αξιολόγησης', 'Πρότυπο newsletter'] },
   'local-seo': { EN: ['Google Business optimisation', 'Local keyword targeting', 'Technical SEO', 'Monthly reporting'], GR: ['Βελτιστοποίηση Google Business', 'Στόχευση τοπικών λέξεων', 'Τεχνικό SEO', 'Μηνιαία αναφορά'] },
   'hosting-care': { EN: ['Reliable hosting', 'Security & backups', 'Basic updates', 'Managed for you'], GR: ['Αξιόπιστη φιλοξενία', 'Ασφάλεια & backups', 'Βασικές ενημερώσεις', 'Διαχείριση από εμάς'] },
+
+  /* ---- digital ---- */
+  'landing-page': { EN: ['One focused, conversion-optimised page', 'Strong headline and call-to-action', 'Enquiry or booking form', 'Fast load on mobile'], GR: ['Μία εστιασμένη σελίδα για μετατροπές', 'Δυνατός τίτλος και call-to-action', 'Φόρμα αιτήματος ή κράτησης', 'Γρήγορη φόρτωση σε κινητά'] },
+  'extra-page': { EN: ['Designed to match your site', 'Written, on-brand copy', 'Mobile responsive', 'SEO basics included'], GR: ['Σχεδιασμός στο ύφος του site σας', 'Γραμμένο, on-brand κείμενο', 'Responsive σε κινητά', 'Βασικό SEO'] },
+  'brand-identity': { EN: ['Logo design (3 concepts)', 'Colour palette & typography', 'Social media profile kit', 'Brand guidelines PDF'], GR: ['Σχεδιασμός λογότυπου (3 προτάσεις)', 'Παλέτα χρωμάτων & τυπογραφία', 'Kit προφίλ social media', 'Brand guidelines σε PDF'] },
+  'gbp-support': { EN: ['Profile setup & optimisation', 'Regular posts & photos', 'Up-to-date hours & info', 'Review monitoring'], GR: ['Στήσιμο & βελτιστοποίηση προφίλ', 'Τακτικά posts & φωτογραφίες', 'Ενημερωμένες ώρες & πληροφορίες', 'Παρακολούθηση κριτικών'] },
+  'google-ads': { EN: ['Campaign strategy & setup', 'Keyword research & ad copy', 'Conversion tracking setup', 'Weekly optimisation', 'Monthly performance report'], GR: ['Στρατηγική & στήσιμο καμπάνιας', 'Έρευνα λέξεων & κείμενα διαφημίσεων', 'Στήσιμο conversion tracking', 'Εβδομαδιαία βελτιστοποίηση', 'Μηνιαία αναφορά απόδοσης'] },
+  'social-video': { EN: ['Scripted by our team', 'Professional editing', 'Subtitles in English & Greek', 'Optimised 9:16 and 1:1', 'Posted and scheduled for you'], GR: ['Σενάριο από την ομάδα μας', 'Επαγγελματικό μοντάζ', 'Υπότιτλοι στα Αγγλικά & Ελληνικά', 'Βελτιστοποίηση 9:16 και 1:1', 'Δημοσίευση & προγραμματισμός'] },
+  'analytics-reporting': { EN: ['Google Analytics 4 setup', 'Monthly PDF report', 'Visitor source breakdown', 'Enquiry tracking', 'Action recommendations'], GR: ['Στήσιμο Google Analytics 4', 'Μηνιαία αναφορά σε PDF', 'Ανάλυση πηγών επισκεπτών', 'Παρακολούθηση αιτημάτων', 'Προτάσεις ενεργειών'] },
+
+  /* ---- automation ---- */
+  'simple-automation': { EN: ['Connect forms, email & WhatsApp', 'Auto-route new enquiries', 'No more manual copy-paste', 'No-code, managed for you'], GR: ['Σύνδεση φορμών, email & WhatsApp', 'Αυτόματη δρομολόγηση αιτημάτων', 'Τέλος στο χειροκίνητο copy-paste', 'No-code, διαχείριση από εμάς'] },
+  'ai-customer-journey': { EN: ['Visit → enquiry → proposal flow', 'Automated follow-ups', 'WhatsApp & email touchpoints', 'End-to-end conversion tracking'], GR: ['Ροή επίσκεψη → αίτημα → πρόταση', 'Αυτόματα follow-up', 'Σημεία επαφής WhatsApp & email', 'Παρακολούθηση μετατροπών end-to-end'] },
+
+  /* ---- support & growth ---- */
+  'extra-storage': { EN: ['Additional media storage', 'For galleries & video', 'Fast delivery (CDN)', 'Scales as you grow'], GR: ['Επιπλέον χώρος για media', 'Για gallery & βίντεο', 'Γρήγορη παράδοση (CDN)', 'Κλιμακώνεται με την ανάπτυξη'] },
+  'priority-updates': { EN: ['Faster turnaround on changes', 'Priority request queue', 'Content & image updates', 'Ongoing support'], GR: ['Ταχύτερη εξυπηρέτηση αλλαγών', 'Προτεραιότητα στα αιτήματα', 'Ενημερώσεις περιεχομένου & εικόνων', 'Συνεχής υποστήριξη'] },
+  'content-refresh': { EN: ['Regular content updates', 'Seasonal banners & offers', 'New photos & sections', 'Keeps your site current'], GR: ['Τακτικές ενημερώσεις περιεχομένου', 'Εποχικά banners & προσφορές', 'Νέες φωτογραφίες & ενότητες', 'Κρατά το site σας επίκαιρο'] },
+  'website-health-check': { EN: ['Speed & performance review', 'SEO audit', 'Conversion review', 'Clear, prioritised recommendations'], GR: ['Έλεγχος ταχύτητας & απόδοσης', 'Έλεγχος SEO', 'Έλεγχος μετατροπών', 'Ξεκάθαρες, ιεραρχημένες προτάσεις'] },
+  'domain-connection': { EN: ['Domain connected correctly', 'DNS configured', 'SSL / HTTPS enabled', 'www & redirects set up'], GR: ['Σωστή σύνδεση domain', 'Ρύθμιση DNS', 'Ενεργοποίηση SSL / HTTPS', 'Ρύθμιση www & ανακατευθύνσεων'] },
+  'business-email': { EN: ['Professional email on your domain', 'Setup on all your devices', 'Spam protection', 'Up to 3 mailboxes'], GR: ['Επαγγελματικό email στο domain σας', 'Στήσιμο σε όλες τις συσκευές σας', 'Προστασία spam', 'Έως 3 λογαριασμοί'] },
+  'tracking-setup': { EN: ['Analytics installed', 'Conversion & event tracking', 'Form & call tracking', 'Ad pixels configured'], GR: ['Εγκατάσταση analytics', 'Παρακολούθηση μετατροπών & events', 'Tracking φορμών & κλήσεων', 'Ρύθμιση ad pixels'] },
 };
 export function catFeatures(id: string, lang: Lang): string[] | null { const f = FEATURES[id]; return f ? (f[lang] || f.EN) : null; }
 

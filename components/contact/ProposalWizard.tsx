@@ -55,7 +55,7 @@ export function ProposalWizard() {
   const meta = WIZARD_STEPS[step - 1];
 
   return (
-    <div style={{ paddingBottom: 'var(--space-16)', minHeight: '60vh' }}>
+    <div id="wizard" style={{ paddingBottom: 'var(--space-16)', minHeight: '60vh', scrollMarginTop: 88 }}>
       <WizardProgress step={step} setStep={setStep} />
 
       <div className="container" style={{ paddingTop: 'var(--space-12)' }}>

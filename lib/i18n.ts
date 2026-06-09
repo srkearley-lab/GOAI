@@ -30,13 +30,15 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     basket_items: 'items', basket_item: 'item',
 
     /* services intro + AI automation copy */
-    svc_intro_title: 'Services built for websites, automation, and growth',
+    svc_intro_title: 'Websites, automation & growth',
+    svc_hero_sub: 'Premium websites and AI automation — built and managed for you.',
     svc_intro_sub: 'Start with a premium website, then add WhatsApp, AI automation, SEO, hosting, and reporting as your business grows.',
     svc_anchor_websites: 'Websites', svc_anchor_digital: 'Digital Services', svc_anchor_ai: 'AI Automation', svc_anchor_support: 'Support & Growth',
     ai_sub: 'Save time, respond faster, and turn enquiries into structured business workflows.',
     ai_note_1: 'GO AI helps local businesses move from manual enquiries to smarter digital workflows — WhatsApp enquiry journeys, AI proposal generation, automated email follow-ups, website chatbots, and simple internal admin automation.',
     ai_note_2: 'Automation does not replace your business. It helps customers get answers faster and helps you respond with less manual work.',
     best_for: 'Best for:',
+    svc_add_continue: 'Add to proposal & continue', svc_explore: 'Explore', svc_whats_included: "What's included", svc_see_in_action: 'See it in action',
 
     /* proposal empty (spec wording) */
     prop_form_empty: 'No services selected yet. You can submit the form and we’ll recommend the best setup for you.',
@@ -133,11 +135,18 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     ind_desc: 'Every business type has different problems, different customers and different goals. We’ve built specific solutions for the businesses that make Greece work.',
     ind_whatwebuild: 'What we build for you',
     ind_getplan: 'Get a free plan for my ',
+    ind_hero_sub: 'Specific solutions for the businesses that make Greece work — built and run for you.',
+    ind_hero_chip2: 'Built for Greece',
+    ind_overview_tag: 'The industries we know best',
+    ind_overview_title: 'Pick your business. See exactly what we build.',
+    ind_overview_desc: 'Eight industries, eight playbooks. Jump to yours below.',
     ind_dontsee_tag: 'Don’t see your industry?', ind_dontsee_title: 'We work with any local business in Greece',
     ind_dontsee_body: 'If you serve customers in Greece and need a better online presence, we can help. Tell us about your business and we’ll send a tailored proposal.',
 
     /* portfolio */
     pf_tag: 'Portfolio', pf_title: 'Demo sites built for businesses across Greece',
+    pf_hero_sub: 'Real demo sites we’ve built for businesses across Greece — browse the work below.',
+    pf_hero_chip2: '7-day average launch',
     pf_desc: 'Every project is built from scratch for the industry, location and goals of that specific business. Browse by industry to see what we’d build for you.',
     pf_all: 'All', pf_projects: 'projects', pf_project: 'project', pf_viewdemo: 'View demo site',
     pf_cta_tag: 'Want to see yours?', pf_cta_title: 'We’ll build a free demo for your business',
@@ -146,6 +155,8 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
 
     /* automation */
     auto_tag: 'AI Automation', auto_title: 'Your business, running on autopilot',
+    auto_hero_sub: 'WhatsApp flows, AI proposals, email sequences and chatbots — built and managed so your business runs on autopilot.',
+    auto_hero_chip2: 'Fully managed',
     auto_desc: 'We build the automations that handle your enquiries, follow-ups, proposals and content — so your business grows even when you’re not at your desk.',
     auto_also_tag: 'Also included', auto_also_title: 'Content and visibility — handled too',
     auto_flow_tag: 'The connected system', auto_flow_title: 'Every automation connects to the next',
@@ -160,7 +171,7 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     cta_free_btn: 'Request my free plan', cta_whatsapp: 'Message on WhatsApp', ask_whatsapp: 'Ask on WhatsApp',
 
     /* proposal / contact */
-    prop_tag: 'Request a proposal', prop_title: 'Request your GO AI proposal',
+    prop_tag: 'Request a proposal', prop_title: 'Request your GO AI proposal', prop_start: 'Build my proposal',
     prop_intro: 'Tell us what you need and we’ll prepare a tailored website, automation, and growth recommendation for your business.',
     prop_support: 'No obligation. Choose the services you’re interested in, add your business details, and GO AI will come back with the best setup.',
     prop_empty_title: 'No services selected yet',
@@ -240,13 +251,15 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     basket_items: 'υπηρεσίες', basket_item: 'υπηρεσία',
 
     /* services intro + AI automation copy */
-    svc_intro_title: 'Υπηρεσίες για ιστοσελίδες, αυτοματισμούς και ανάπτυξη',
+    svc_intro_title: 'Ιστοσελίδες, αυτοματισμοί & ανάπτυξη',
+    svc_hero_sub: 'Premium ιστοσελίδες και AI αυτοματισμοί — έτοιμα και διαχειριζόμενα για εσάς.',
     svc_intro_sub: 'Ξεκινήστε με μια premium ιστοσελίδα και προσθέστε WhatsApp, AI αυτοματισμούς, SEO, φιλοξενία και αναφορές καθώς η επιχείρησή σας μεγαλώνει.',
     svc_anchor_websites: 'Ιστοσελίδες', svc_anchor_digital: 'Ψηφιακές Υπηρεσίες', svc_anchor_ai: 'AI Αυτοματισμοί', svc_anchor_support: 'Υποστήριξη & Ανάπτυξη',
     ai_sub: 'Κερδίστε χρόνο, απαντήστε γρηγορότερα και μετατρέψτε τα αιτήματα σε δομημένες ροές εργασίας.',
     ai_note_1: 'Η GO AI βοηθά τις τοπικές επιχειρήσεις να περάσουν από τα χειροκίνητα αιτήματα σε εξυπνότερες ψηφιακές ροές — διαδρομές αιτημάτων WhatsApp, δημιουργία AI προτάσεων, αυτόματα email follow-up, chatbots ιστοσελίδας και απλό εσωτερικό αυτοματισμό.',
     ai_note_2: 'Ο αυτοματισμός δεν αντικαθιστά την επιχείρησή σας. Βοηθά τους πελάτες να παίρνουν απαντήσεις γρηγορότερα και εσάς να ανταποκρίνεστε με λιγότερη χειροκίνητη δουλειά.',
     best_for: 'Ιδανικό για:',
+    svc_add_continue: 'Προσθήκη στην πρόταση & συνέχεια', svc_explore: 'Δείτε', svc_whats_included: 'Τι περιλαμβάνεται', svc_see_in_action: 'Δείτε το σε δράση',
 
     /* proposal empty (spec wording) */
     prop_form_empty: 'Δεν έχει επιλεγεί καμία υπηρεσία ακόμα. Μπορείτε να υποβάλετε τη φόρμα και θα σας προτείνουμε την καλύτερη λύση.',
@@ -338,10 +351,17 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     ind_desc: 'Κάθε τύπος επιχείρησης έχει διαφορετικά προβλήματα, διαφορετικούς πελάτες και διαφορετικούς στόχους. Έχουμε φτιάξει συγκεκριμένες λύσεις για τις επιχειρήσεις που κρατούν την Ελλάδα ζωντανή.',
     ind_whatwebuild: 'Τι φτιάχνουμε για εσάς',
     ind_getplan: 'Δωρεάν πλάνο για ',
+    ind_hero_sub: 'Συγκεκριμένες λύσεις για τις επιχειρήσεις που κρατούν την Ελλάδα — έτοιμες και διαχειριζόμενες για εσάς.',
+    ind_hero_chip2: 'Φτιαγμένο για την Ελλάδα',
+    ind_overview_tag: 'Οι κλάδοι που ξέρουμε καλύτερα',
+    ind_overview_title: 'Διαλέξτε τον κλάδο σας. Δείτε τι ακριβώς φτιάχνουμε.',
+    ind_overview_desc: 'Οκτώ κλάδοι, οκτώ έτοιμα playbooks. Πηγαίνετε στον δικό σας παρακάτω.',
     ind_dontsee_tag: 'Δεν βλέπετε τον κλάδο σας;', ind_dontsee_title: 'Συνεργαζόμαστε με κάθε τοπική επιχείρηση στην Ελλάδα',
     ind_dontsee_body: 'Αν εξυπηρετείτε πελάτες στην Ελλάδα και χρειάζεστε καλύτερη online παρουσία, μπορούμε να βοηθήσουμε. Πείτε μας για την επιχείρησή σας και θα στείλουμε μια εξατομικευμένη πρόταση.',
 
     pf_tag: 'Έργα', pf_title: 'Demo ιστοσελίδες για επιχειρήσεις σε όλη την Ελλάδα',
+    pf_hero_sub: 'Πραγματικά demo sites που έχουμε φτιάξει για επιχειρήσεις σε όλη την Ελλάδα — δείτε τα έργα παρακάτω.',
+    pf_hero_chip2: 'Μέσος χρόνος 7 ημέρες',
     pf_desc: 'Κάθε έργο φτιάχνεται από την αρχή για τον κλάδο, την περιοχή και τους στόχους της κάθε επιχείρησης. Δείτε ανά κλάδο τι θα φτιάχναμε για εσάς.',
     pf_all: 'Όλα', pf_projects: 'έργα', pf_project: 'έργο', pf_viewdemo: 'Δείτε το demo',
     pf_cta_tag: 'Θέλετε να δείτε το δικό σας;', pf_cta_title: 'Φτιάχνουμε ένα δωρεάν demo για την επιχείρησή σας',
@@ -349,6 +369,8 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     pf_cta_btn: 'Ζητήστε το δωρεάν demo',
 
     auto_tag: 'AI Αυτοματισμοί', auto_title: 'Η επιχείρησή σας στον αυτόματο πιλότο',
+    auto_hero_sub: 'Ροές WhatsApp, AI προτάσεις, ακολουθίες email και chatbots — έτοιμα και διαχειριζόμενα ώστε η επιχείρησή σας να τρέχει στον αυτόματο.',
+    auto_hero_chip2: 'Πλήρης διαχείριση',
     auto_desc: 'Φτιάχνουμε τους αυτοματισμούς που διαχειρίζονται τα αιτήματα, τα follow-up, τις προτάσεις και το περιεχόμενό σας — ώστε η επιχείρησή σας να αναπτύσσεται ακόμα κι όταν δεν είστε στο γραφείο.',
     auto_also_tag: 'Επίσης περιλαμβάνεται', auto_also_title: 'Περιεχόμενο και προβολή — τα αναλαμβάνουμε κι αυτά',
     auto_flow_tag: 'Το συνδεδεμένο σύστημα', auto_flow_title: 'Κάθε αυτοματισμός συνδέεται με τον επόμενο',
@@ -361,7 +383,7 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     cta_free_body: 'Πείτε μας για την επιχείρησή σας και θα στείλουμε ένα εξατομικευμένο πλάνο που δείχνει ακριβώς τι θα φτιάχναμε — και πόσο θα κόστιζε. Χωρίς δέσμευση.',
     cta_free_btn: 'Ζητήστε το δωρεάν πλάνο', cta_whatsapp: 'Μήνυμα στο WhatsApp', ask_whatsapp: 'Ρωτήστε στο WhatsApp',
 
-    prop_tag: 'Ζητήστε πρόταση', prop_title: 'Ζητήστε την πρότασή σας από τη GO AI',
+    prop_tag: 'Ζητήστε πρόταση', prop_title: 'Ζητήστε την πρότασή σας από τη GO AI', prop_start: 'Φτιάξτε την πρότασή μου',
     prop_intro: 'Πείτε μας τι χρειάζεστε και θα ετοιμάσουμε μια εξατομικευμένη πρόταση για ιστοσελίδα, αυτοματισμούς και ανάπτυξη για την επιχείρησή σας.',
     prop_support: 'Χωρίς δέσμευση. Επιλέξτε τις υπηρεσίες που σας ενδιαφέρουν, προσθέστε τα στοιχεία σας και η GO AI θα επανέλθει με την καλύτερη λύση.',
     prop_empty_title: 'Δεν έχει επιλεγεί καμία υπηρεσία ακόμα',

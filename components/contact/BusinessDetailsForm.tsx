@@ -46,7 +46,6 @@ export function BusinessDetailsForm({ onDone }: { onDone: (p: ProposalRequestInp
     if (!f.firstName.trim()) er.firstName = t('v_name');
     if (!f.businessName.trim()) er.businessName = t('v_business');
     if (!f.email.trim() && !f.phoneWhatsapp.trim()) er.contact = t('v_contact');
-    if (items.length === 0) er.service = t('v_service');
     setErrors(er);
     return Object.keys(er).length === 0;
   };
@@ -72,11 +71,25 @@ export function BusinessDetailsForm({ onDone }: { onDone: (p: ProposalRequestInp
     }
   };
 
-  // WhatsApp fallback (prefilled) if the server submission fails.
+  // WhatsApp fallback, prefilled with the FULL lead — used when auto-submit
+  // isn't available, so the lead still reaches us even with no backend wired.
   const waText = (() => {
+    const L = (gr: string, en: string) => (lang === 'GR' ? gr : en);
+    const lines: string[] = [L('Γεια σας! Θα ήθελα μια πρόταση από τη GO AI.', "Hi! I'd like a proposal from GO AI.")];
+    const name = [f.firstName, f.lastName].map((s) => s.trim()).filter(Boolean).join(' ');
+    const contact = [f.email.trim(), f.phoneWhatsapp.trim()].filter(Boolean).join(' · ');
     const services = items.map((id) => labelOf(id)).join(', ');
-    const intro = lang === 'GR' ? 'Γεια σας! Θα ήθελα μια πρόταση.' : "Hi! I'd like a proposal.";
-    return `${intro}${f.businessName ? ` (${f.businessName.trim()})` : ''}${services ? ` — ${services}` : ''}`;
+    const add = (label: string, val: string) => { if (val) lines.push(`${label}: ${val}`); };
+    add(L('Όνομα', 'Name'), name);
+    add(L('Επιχείρηση', 'Business'), f.businessName.trim());
+    add(L('Τύπος', 'Type'), f.businessType);
+    add(L('Περιοχή', 'Location'), f.location.trim());
+    add(L('Επικοινωνία', 'Contact'), contact);
+    add(L('Ιστότοπος', 'Website'), f.existingWebsiteUrl.trim());
+    add(L('Υπηρεσίες', 'Services'), services);
+    add(L('Ανάγκες', 'Needs'), f.needsHelp.trim());
+    add(L('Μήνυμα', 'Message'), f.message.trim());
+    return lines.join('\n');
   })();
 
   return (
@@ -107,8 +120,7 @@ export function BusinessDetailsForm({ onDone }: { onDone: (p: ProposalRequestInp
         </div>
       </div>
 
-      {errors.service && <span data-err="1" style={{ fontSize: 'var(--text-sm)', color: '#dc2626', display: 'flex', alignItems: 'center', gap: 6 }}><Icon name="AlertCircle" size={14} /> {errors.service}</span>}
-      {(errors.firstName || errors.businessName || errors.contact || errors.service) && (
+      {(errors.firstName || errors.businessName || errors.contact) && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 14px', background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.25)', borderRadius: 'var(--radius-md)', color: '#b91c1c' }}>
           <Icon name="AlertCircle" size={16} /> <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }}>{t('v_fix')}</span>
         </div>
@@ -116,7 +128,7 @@ export function BusinessDetailsForm({ onDone }: { onDone: (p: ProposalRequestInp
 
       {serverError && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '14px 16px', background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.25)', borderRadius: 'var(--radius-md)', color: '#b91c1c' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-sm)', fontWeight: 600 }}><Icon name="AlertCircle" size={16} /> {lang === 'GR' ? 'Κάτι πήγε στραβά με την αποστολή. Δοκιμάστε ξανά ή στείλτε μας μήνυμα στο WhatsApp.' : 'Something went wrong sending your request. Please try again or message us on WhatsApp.'}</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-sm)', fontWeight: 600 }}><Icon name="AlertCircle" size={16} /> {lang === 'GR' ? 'Δεν ήταν δυνατή η αυτόματη αποστολή. Στείλτε μας τα στοιχεία σας με ένα κλικ στο WhatsApp — είναι ήδη συμπληρωμένα.' : "We couldn't submit automatically — send your details on WhatsApp with one tap (they're already filled in)."}</span>
           <a href={buildWhatsAppLink(waText)} data-action="whatsapp-contact" className="btn btn-wa btn-sm" style={{ alignSelf: 'flex-start' }}><Icon name="MessageCircle" size={16} /> {t('f_whatsapp_btn')}</a>
         </div>
       )}

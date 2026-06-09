@@ -3,60 +3,27 @@
    GO AI — Automation page (bilingual + Add to Proposal)
    ============================================================ */
 import type { ComponentType } from 'react';
-import { useRouter } from 'next/navigation';
 import { Icon } from '@/components/ui/Icon';
 import { Reveal } from '@/components/ui/Reveal';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Section } from '@/components/ui/Section';
 import { SectionHeader } from '@/components/ui/SectionHeader';
-import { PageHero } from '@/components/ui/PageHero';
+import { RequestProposalButton } from '@/components/chrome/RequestProposalButton';
 import { useApp } from '@/lib/store';
-import { AddToProposalButton } from '@/components/proposal/AddToProposalButton';
+import { ContinueWithService } from '@/components/services/ContinueWithService';
+import { WhatsAppMockup } from '@/components/contact/WhatsAppMockup';
 import { SITE as DATA } from '@/data/content';
 import { WHATSAPP } from '@/lib/whatsapp';
 import type { Bilingual } from '@/types';
 
 /* ---- local data shapes (richer than the shared @/types interfaces) ---- */
-interface ChatMessageData { from: 'user' | 'bot'; text: Bilingual; time?: string; }
 interface EmailStepData { day: Bilingual; label: Bilingual; subject: Bilingual; preview: Bilingual; }
 interface FlowStepData { icon: string; label: Bilingual; sub: Bilingual; }
 interface AutoSectionData { cid: string; tag: Bilingual; title: Bilingual; description: Bilingual; points: Bilingual[]; visual: string; flip: boolean; }
 interface SupportCardData { cid: string; icon: string; title: Bilingual; description: Bilingual; points: Bilingual[]; }
 
-/* proposal-only action row (preserves the legacy call sites) */
-function ProposalBasketActions({ id, size = 'sm' }: { id: string; size?: 'sm' | 'md'; stack?: boolean }) {
-  return <AddToProposalButton id={id} size={size} full />;
-}
-
-function ChatBubble({ msg, tr }: { msg: ChatMessageData; tr: (obj: Bilingual | string | null | undefined) => string }) {
-  const isUser = msg.from === 'user';
-  return (
-    <div style={{ display: 'flex', justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
-      <div style={{ maxWidth: '80%', background: isUser ? '#dcf8c6' : '#fff', borderRadius: isUser ? '12px 12px 2px 12px' : '12px 12px 12px 2px', padding: '7px 10px 5px', boxShadow: '0 1px 1px rgba(0,0,0,0.12)' }}>
-        <p style={{ fontSize: 12.5, lineHeight: 1.5, color: '#111', margin: 0, whiteSpace: 'pre-line', wordBreak: 'break-word' }}>{tr(msg.text)}</p>
-        {msg.time && <p style={{ fontSize: 10, color: '#9aa', textAlign: 'right', margin: '2px 0 0' }}>{msg.time} ✓✓</p>}
-      </div>
-    </div>
-  );
-}
-function WhatsAppMockup() {
-  const { tr } = useApp();
-  return (
-    <div style={{ width: 290, background: '#e5ddd5', borderRadius: 22, overflow: 'hidden', boxShadow: 'var(--shadow-lg)', border: '8px solid #0e1411' }}>
-      <div style={{ background: '#075e54', padding: '8px 14px 10px', display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div style={{ width: 38, height: 38, borderRadius: '50%', background: '#128c7e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ fontSize: 15, color: '#fff', fontWeight: 800 }}>V</span></div>
-        <div><p style={{ fontSize: 13, fontWeight: 700, color: '#fff', margin: 0 }}>Villa Mila</p><p style={{ fontSize: 10, color: 'rgba(255,255,255,0.75)', margin: 0 }}>🤖 GO AI</p></div>
-      </div>
-      <div style={{ padding: '12px 9px', display: 'flex', flexDirection: 'column', gap: 7, background: '#e5ddd5', maxHeight: 360, overflowY: 'auto' }}>
-        {(DATA.chatMessages as ChatMessageData[]).map((m, i) => <ChatBubble key={i} msg={m} tr={tr} />)}
-      </div>
-      <div style={{ background: '#f0f0f0', padding: '7px 9px', display: 'flex', alignItems: 'center', gap: 7 }}>
-        <div style={{ flex: 1, height: 32, background: '#fff', borderRadius: 16, border: '1px solid #ddd' }} />
-        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#075e54' }} />
-      </div>
-    </div>
-  );
-}
+const HERO_IMAGE = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1400&q=80';
+const SECTION_ICONS: Record<string, string> = { whatsapp: 'MessageSquare', email: 'Mail', proposal: 'FileText' };
 
 function EmailSequenceViz() {
   const { tr } = useApp();
@@ -126,7 +93,7 @@ function ProposalMockup() {
 
 const VISUALS: Record<string, ComponentType> = { whatsapp: WhatsAppMockup, email: EmailSequenceViz, proposal: ProposalMockup };
 
-function AutoSection({ section, bg }: { section: AutoSectionData; bg: string }) {
+function AutoSection({ section, index, bg }: { section: AutoSectionData; index: number; bg: string }) {
   const { tr, priceOf } = useApp();
   const Visual = VISUALS[section.visual];
   const flip = section.flip;
@@ -134,8 +101,12 @@ function AutoSection({ section, bg }: { section: AutoSectionData; bg: string }) 
     <Section bg={bg} style={{ borderBottom: '1px solid var(--line)' }}>
       <div className="auto-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-16)', alignItems: 'center' }}>
         <Reveal style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', order: flip ? 2 : 1 }} className="auto-text">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', flexWrap: 'wrap' }}>
+            <span className="au-num">{String(index + 1).padStart(2, '0')}</span>
+            <span className="glass-badge"><Icon name={SECTION_ICONS[section.visual] || 'Sparkles'} size={24} /></span>
             <Eyebrow dot>{tr(section.tag)}</Eyebrow>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, lineHeight: 1.12, letterSpacing: '-0.025em', color: 'var(--ink)' }}>{tr(section.title)}</h2>
             <p style={{ fontSize: 'var(--text-lg)', fontWeight: 800, color: 'var(--brand-ink)', letterSpacing: '-0.02em' }}>{priceOf(section.cid)}</p>
             <p style={{ fontSize: 'var(--text-base)', lineHeight: 1.7, color: 'var(--ink-2)' }}>{tr(section.description)}</p>
@@ -148,7 +119,7 @@ function AutoSection({ section, bg }: { section: AutoSectionData; bg: string }) 
               </li>
             ))}
           </ul>
-          <div><ProposalBasketActions id={section.cid} size="md" /></div>
+          <div><ContinueWithService id={section.cid} size="md" /></div>
         </Reveal>
         <Reveal delay={80} style={{ display: 'flex', justifyContent: 'center', order: flip ? 1 : 2 }} className="auto-visual"><Visual /></Reveal>
       </div>
@@ -159,8 +130,8 @@ function AutoSection({ section, bg }: { section: AutoSectionData; bg: string }) 
 function SupportCard({ card, delay }: { card: SupportCardData; delay: number }) {
   const { tr, priceOf } = useApp();
   return (
-    <Reveal delay={delay} className="card" style={{ padding: 'var(--space-6)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
-      <span className="icon-badge"><Icon name={card.icon} size={20} /></span>
+    <Reveal delay={delay} className="card au-card">
+      <span className="glass-badge"><Icon name={card.icon} size={22} /></span>
       <div>
         <h3 style={{ fontSize: 'var(--text-md)', fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{tr(card.title)}</h3>
         <p style={{ fontSize: 'var(--text-base)', fontWeight: 800, color: 'var(--brand-ink)', marginBottom: 6 }}>{priceOf(card.cid)}</p>
@@ -174,7 +145,7 @@ function SupportCard({ card, delay }: { card: SupportCardData; delay: number }) 
           </li>
         ))}
       </ul>
-      <div style={{ marginTop: 'auto' }}><ProposalBasketActions id={card.cid} stack /></div>
+      <div style={{ marginTop: 'auto' }}><ContinueWithService id={card.cid} size="sm" full /></div>
     </Reveal>
   );
 }
@@ -182,52 +153,61 @@ function SupportCard({ card, delay }: { card: SupportCardData; delay: number }) 
 function SystemFlow() {
   const { tr } = useApp();
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', minWidth: 'max-content', padding: '0 var(--space-2)', justifyContent: 'center' }}>
+    <div className="au-flow-wrap">
+      <div className="au-flow">
+        <div className="au-flow-line" aria-hidden="true" />
         {(DATA.flowSteps as FlowStepData[]).map((step, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
-            <Reveal delay={i * 70} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-3)', width: 124 }}>
-              <span className="icon-badge lg round" style={{ background: i === 0 ? 'var(--brand)' : 'var(--surface)', borderColor: i === 0 ? 'var(--brand)' : 'var(--line-2)', color: i === 0 ? '#fff' : 'var(--brand-ink)', boxShadow: 'var(--shadow-sm)' }}><Icon name={step.icon} size={22} /></span>
-              <div style={{ textAlign: 'center' }}>
-                <p style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: 'var(--ink)', margin: '0 0 2px' }}>{tr(step.label)}</p>
-                <p style={{ fontSize: 11, color: 'var(--ink-3)', lineHeight: 1.4, margin: 0 }}>{tr(step.sub)}</p>
-              </div>
-            </Reveal>
-            {i < DATA.flowSteps.length - 1 && <div style={{ color: 'var(--line-2)', marginBottom: 38, flexShrink: 0 }}><Icon name="ChevronRight" size={18} /></div>}
-          </div>
+          <Reveal key={i} delay={i * 70} className="au-flow-step">
+            <span className="glass-badge"><Icon name={step.icon} size={24} /></span>
+            <div style={{ textAlign: 'center' }}>
+              <p style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: 'var(--ink)', margin: '0 0 2px' }}>{tr(step.label)}</p>
+              <p style={{ fontSize: 11, color: 'var(--ink-3)', lineHeight: 1.4, margin: 0 }}>{tr(step.sub)}</p>
+            </div>
+          </Reveal>
         ))}
       </div>
     </div>
   );
 }
 
-function FinalCTA({ tagKey, titleKey, bodyKey, primaryKey, bg = 'accent' }: { tagKey: string; titleKey: string; bodyKey: string; primaryKey?: string; bg?: string }) {
-  const { t } = useApp();
-  const router = useRouter();
-  return (
-    <Section bg={bg} style={{ borderTop: '1px solid var(--line)' }}>
-      <Reveal style={{ maxWidth: 'var(--width-md)', margin: '0 auto', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-8)' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-4)' }}>
-          <Eyebrow tone="gold" dot>{t(tagKey)}</Eyebrow>
-          <h2 style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, lineHeight: 1.1, letterSpacing: '-0.025em', color: 'var(--ink)', maxWidth: '22ch' }}>{t(titleKey)}</h2>
-          <p style={{ fontSize: 'var(--text-md)', lineHeight: 1.6, color: 'var(--ink-2)', maxWidth: '48ch' }}>{t(bodyKey)}</p>
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
-          <button onClick={() => router.push('/contact')} data-action="request-proposal" className="btn btn-primary btn-lg">{t(primaryKey || 'request_proposal')}</button>
-          <a href={WHATSAPP} data-action="whatsapp-contact" className="btn btn-wa btn-lg"><Icon name="MessageCircle" size={18} /> {t('cta_whatsapp')}</a>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
 export default function Automation() {
-  const { t } = useApp();
+  const { t, tr } = useApp();
   return (
     <main>
-      <PageHero tag={t('auto_tag')} title={t('auto_title')} description={t('auto_desc')} />
+      {/* Hero — split: copy left, curated automation image right */}
+      <section className="hero-grid" style={{ position: 'relative', overflow: 'hidden', paddingTop: 120, paddingBottom: 'var(--space-16)', borderBottom: '1px solid var(--line)' }}>
+        <div className="hero-aurora" aria-hidden="true" />
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, background: 'linear-gradient(180deg, transparent 55%, var(--bg) 100%)', pointerEvents: 'none' }} />
+        <div className="container hero-split" style={{ position: 'relative', zIndex: 1 }}>
+          <Reveal className="hero-copy">
+            <Eyebrow dot>{t('auto_tag')}</Eyebrow>
+            <h1 style={{ fontSize: 'clamp(2rem, 4.4vw, 3rem)', fontWeight: 800, lineHeight: 1.08, letterSpacing: '-0.03em', color: 'var(--ink)' }}>{t('auto_title')}</h1>
+            <p style={{ fontSize: 'var(--text-md)', lineHeight: 1.6, color: 'var(--ink-2)', maxWidth: '42ch' }}>{t('auto_hero_sub')}</p>
+            <div className="hero-row">
+              <RequestProposalButton size="md" />
+              <a href={WHATSAPP} data-action="whatsapp-contact" className="btn btn-secondary btn-lg"><Icon name="MessageCircle" size={18} /> {t('cta_whatsapp')}</a>
+            </div>
+            <div className="hero-proof">
+              {DATA.heroProofKeys.map((k) => (
+                <span key={k} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-sm)', color: 'var(--ink-3)', fontWeight: 500 }}>
+                  <Icon name="Check" size={15} style={{ color: 'var(--brand-ink)' }} /> {t(k)}
+                </span>
+              ))}
+            </div>
+          </Reveal>
 
-      {(DATA.autoSections as AutoSectionData[]).map((s, i) => <AutoSection key={s.cid} section={s} bg={i % 2 === 0 ? 'alt' : 'base'} />)}
+          <Reveal delay={120} className="hero-visual" style={{ position: 'relative' }}>
+            <div className="au-hero-glow" aria-hidden="true" />
+            <div className="au-hero-media">
+              <img src={HERO_IMAGE} alt="" aria-hidden="true" />
+            </div>
+            <span className="au-fc fc-top"><Icon name="MessageCircle" size={13} /> {tr({ EN: '24/7 replies', GR: 'Απαντήσεις 24/7' })}</span>
+            <span className="au-fc fc-bot"><Icon name="ShieldCheck" size={13} /> {t('auto_hero_chip2')}</span>
+          </Reveal>
+        </div>
+      </section>
+
+      {(DATA.autoSections as AutoSectionData[]).map((s, i) => <AutoSection key={s.cid} section={s} index={i} bg={i % 2 === 0 ? 'alt' : 'base'} />)}
 
       <Section bg="base" style={{ borderTop: '1px solid var(--line)' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
@@ -241,22 +221,67 @@ export default function Automation() {
         </div>
       </Section>
 
-      <Section bg="accent" style={{ borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
+      <section className="hero-grid" style={{ position: 'relative', overflow: 'hidden', padding: 'var(--section-y) 0', borderTop: '1px solid var(--line)', borderBottom: '1px solid var(--line)' }}>
+        <div className="how-glow" aria-hidden="true" />
+        <div className="container" style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
           <SectionHeader tag={t('auto_flow_tag')} title={t('auto_flow_title')} description={t('auto_flow_desc')} />
           <SystemFlow />
         </div>
-      </Section>
+      </section>
 
-      <FinalCTA tagKey="auto_cta_tag" titleKey="auto_cta_title" bodyKey="auto_cta_body" primaryKey="auto_cta_btn" bg="base" />
+      {/* Final CTA — Santorini wash */}
+      <section className="cta-section">
+        <div className="cta-bg" aria-hidden="true" />
+        <div className="container">
+          <Reveal className="cta-content">
+            <div className="cta-head">
+              <Eyebrow tone="gold" dot>{t('auto_cta_tag')}</Eyebrow>
+              <h2>{t('auto_cta_title')}</h2>
+              <p>{t('auto_cta_body')}</p>
+            </div>
+            <div className="cta-actions">
+              <RequestProposalButton size="md" />
+              <a href={WHATSAPP} data-action="whatsapp-contact" className="btn btn-wa btn-lg"><Icon name="MessageCircle" size={18} /> {t('cta_whatsapp')}</a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       <style>{`
+        /* hero image frame + glow (parity with the other pages) */
+        .au-hero-glow { position: absolute; inset: -12% -6% -16% -6%; z-index: 0; pointer-events: none; filter: blur(46px); opacity: 0.5; background: radial-gradient(60% 70% at 58% 32%, color-mix(in srgb, var(--brand) 24%, transparent), transparent 70%); }
+        .au-hero-media { position: relative; z-index: 1; border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); background: var(--surface); animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
+        .au-hero-media img { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+        .au-fc { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; font-size: var(--text-xs); font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--surface) 90%, transparent); border: 1px solid var(--line-2); border-radius: var(--radius-full); box-shadow: var(--shadow-md); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: heroFloat 6.5s ease-in-out infinite; }
+        .au-fc svg { color: var(--brand-ink); }
+        .au-fc.fc-top { top: 18px; left: -12px; }
+        .au-fc.fc-bot { bottom: 20px; right: -12px; animation-delay: -3s; }
+
+        /* deep-dive editorial numeral */
+        .au-num { font-family: var(--font-display); font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; color: var(--brand-ink); opacity: 0.85; }
+
+        /* support cards */
+        .au-card { padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); transition: transform .24s cubic-bezier(.16,1,.3,1), box-shadow .24s ease, border-color .24s ease; }
+        .au-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--brand-line); }
+        .au-card:hover .glass-badge { transform: rotate(-6deg) scale(1.05); }
+
+        /* connected system flow */
+        .au-flow-wrap { overflow-x: auto; }
+        .au-flow { position: relative; display: flex; justify-content: center; gap: var(--space-4); width: max-content; min-width: max-content; margin: 0 auto; padding: 4px 0 0; }
+        .au-flow-line { position: absolute; top: 31px; left: 67px; right: 67px; height: 2px; border-radius: 2px; z-index: 0; opacity: 0.5; background: linear-gradient(90deg, var(--brand-line), var(--brand), var(--brand-line)); background-size: 200% 100%; animation: trackShimmer 6s linear infinite; }
+        .au-flow-step { position: relative; z-index: 1; width: 134px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3); }
+
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); align-items: stretch; }
         @media (max-width: 1000px) { .grid-4 { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 540px) { .grid-4 { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .au-hero-media { max-width: 560px; margin: 0 auto; } .au-hero-media img { aspect-ratio: 16 / 9; } .au-fc { display: none; } }
         @media (max-width: 860px) {
           .auto-grid { grid-template-columns: 1fr !important; gap: var(--space-10) !important; }
           .auto-text { order: 1 !important; } .auto-visual { order: 2 !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .au-hero-media, .au-fc, .au-flow-line { animation: none; }
+          .au-card:hover, .au-card:hover .glass-badge { transform: none; }
         }
       `}</style>
     </main>

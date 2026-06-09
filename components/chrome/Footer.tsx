@@ -5,7 +5,8 @@ import { Icon } from '@/components/ui/Icon';
 import { Logo } from './Logo';
 import { NAV_LINKS } from './navLinks';
 import { WHATSAPP } from '@/lib/whatsapp';
-import { SITE as DATA } from '@/data/content';
+import { GROUP_TITLES } from '@/lib/catalog';
+import { SERVICE_CATEGORIES, CATEGORY_SLUGS } from '@/data/serviceCategories';
 
 export function Footer() {
   const { t, tr } = useApp();
@@ -30,8 +31,8 @@ export function Footer() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
             <p className="foot-head">{t('foot_services')}</p>
-            {DATA.growthCards.map((s) => (
-              <span key={s.cid} style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-2)' }}>{tr(s.title)}</span>
+            {CATEGORY_SLUGS.map((slug) => (
+              <Link key={slug} to={'/services/' + slug} className="foot-link">{tr(GROUP_TITLES[SERVICE_CATEGORIES[slug].group])}</Link>
             ))}
           </div>
 

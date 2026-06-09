@@ -225,7 +225,7 @@ function JourneyLauncher() {
 }
 
 /* ---- info cards / tiles ---- */
-function ServiceCard({ icon, title, description, features, index }: { icon: string; title: Bilingual | string; description: Bilingual | string; features?: Bilingual[]; index: number }) {
+function ServiceCard({ icon, title, description, features, to, index }: { icon: string; title: Bilingual | string; description: Bilingual | string; features?: Bilingual[]; to?: string; index: number }) {
   const { tr, t } = useApp();
   const num = String(index + 1).padStart(2, '0');
   return (
@@ -243,7 +243,7 @@ function ServiceCard({ icon, title, description, features, index }: { icon: stri
           ))}
         </ul>
       )}
-      <Link to="/services" className="svc-more link-arrow">{t('learn_more')} <Icon name="ArrowRight" size={14} /></Link>
+      <Link to={to ?? '/services'} className="svc-more link-arrow">{t('learn_more')} <Icon name="ArrowRight" size={14} /></Link>
       <span className="svc-deco" aria-hidden="true"><Icon name={icon} size={36} /></span>
     </article>
   );

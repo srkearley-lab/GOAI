@@ -12,7 +12,7 @@ export function WizardConfirmation({ payload, onRestart }: { payload: ProposalRe
   return (
     <div className="container" style={{ paddingTop: 'var(--space-16)', paddingBottom: 'var(--space-12)' }}>
       <Reveal className="card" style={{ maxWidth: 560, margin: '0 auto', padding: 'var(--space-12) var(--space-8)', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-4)', border: '1.5px solid var(--brand-line)', background: 'linear-gradient(180deg, var(--brand-soft), var(--surface) 50%)' }}>
-        <span className="icon-badge lg round" style={{ background: 'var(--brand)', color: '#fff', borderColor: 'var(--brand)' }}><Icon name="Check" size={24} stroke={2.5} /></span>
+        <span className="glass-badge" style={{ width: 60, height: 60, borderRadius: 'var(--radius-full)' }}><Icon name="Check" size={26} stroke={2.5} /></span>
         <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>{t('success_title')}</h2>
         <p style={{ fontSize: 'var(--text-md)', color: 'var(--ink-2)', maxWidth: '46ch', lineHeight: 1.6 }}>{t('success_body')}</p>
         {payload && payload.selectedProposalItems.length > 0 && (

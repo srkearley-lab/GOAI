@@ -47,7 +47,7 @@ export function WizardServiceCard({ id, single }: { id: string; single: boolean 
       transition: 'border-color 160ms ease, background 160ms ease, box-shadow 160ms ease',
     }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
-        <span className="icon-badge"><Icon name={c.icon} size={22} /></span>
+        <span className="glass-badge"><Icon name={c.icon} size={22} /></span>
         {selected && <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'var(--brand)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Icon name="Check" size={14} stroke={3} /></span>}
       </div>
       <div>
