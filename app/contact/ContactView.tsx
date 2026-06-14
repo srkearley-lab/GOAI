@@ -7,7 +7,6 @@ import { useApp } from '@/lib/store';
 import { Reveal } from '@/components/ui/Reveal';
 import { Eyebrow } from '@/components/ui/Eyebrow';
 import { Icon } from '@/components/ui/Icon';
-import { WhatsAppMockup } from '@/components/contact/WhatsAppMockup';
 import { ProposalWizard } from '@/components/contact/ProposalWizard';
 import { ContactFaq } from '@/components/contact/ContactFaq';
 import { SITE as DATA } from '@/data/content';
@@ -45,9 +44,9 @@ export default function ContactPage() {
             </div>
           </Reveal>
 
-          <Reveal delay={120} className="hero-visual" style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+          <Reveal delay={120} className="hero-visual" style={{ position: 'relative' }}>
             <div className="ct-hero-glow" aria-hidden="true" />
-            <div className="ct-hero-phone"><WhatsAppMockup /></div>
+            <div className="ct-hero-media"><img src="/contact-hero.png" alt="" aria-hidden="true" /></div>
             <span className="ct-fc fc-top"><Icon name="MessageCircle" size={13} /> {t('proof_2')}</span>
             <span className="ct-fc fc-bot"><Icon name="ShieldCheck" size={13} /> {t('auto_hero_chip2')}</span>
           </Reveal>
@@ -60,13 +59,14 @@ export default function ContactPage() {
 
       <style>{`
         .ct-hero-glow { position: absolute; inset: -14% -10% -16% -10%; z-index: 0; pointer-events: none; filter: blur(46px); opacity: 0.55; background: radial-gradient(58% 65% at 52% 34%, color-mix(in srgb, var(--brand) 26%, transparent), transparent 70%); }
-        .ct-hero-phone { position: relative; z-index: 1; animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
+        .ct-hero-media { position: relative; z-index: 1; border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); background: var(--surface); animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
+        .ct-hero-media img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
         .ct-fc { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; font-size: var(--text-xs); font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--surface) 90%, transparent); border: 1px solid var(--line-2); border-radius: var(--radius-full); box-shadow: var(--shadow-md); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: heroFloat 6.5s ease-in-out infinite; }
         .ct-fc svg { color: var(--brand-ink); }
         .ct-fc.fc-top { top: 26px; left: -4px; }
         .ct-fc.fc-bot { bottom: 30px; right: -4px; animation-delay: -3s; }
         @media (max-width: 900px) { .ct-fc { display: none; } }
-        @media (prefers-reduced-motion: reduce) { .ct-hero-phone, .ct-fc { animation: none; } }
+        @media (prefers-reduced-motion: reduce) { .ct-hero-media, .ct-fc { animation: none; } }
       `}</style>
     </main>
   );

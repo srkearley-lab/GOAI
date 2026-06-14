@@ -10,7 +10,6 @@ import { Link } from '@/components/ui/Link';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { useApp } from '@/lib/store';
 import { RequestProposalButton } from '@/components/chrome/RequestProposalButton';
-import { ContactFaq } from '@/components/contact/ContactFaq';
 import { cat, GROUPS, GROUP_TITLES } from '@/lib/catalog';
 import { SERVICE_CATEGORIES, CATEGORY_SLUGS } from '@/data/serviceCategories';
 import { SITE as DATA } from '@/data/content';
@@ -100,10 +99,8 @@ export default function Services() {
 
           <Reveal delay={120} className="hero-visual" style={{ position: 'relative' }}>
             <div className="svc-hero-glow" aria-hidden="true" />
-            <div className="svc-hero-video">
-              <video ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline preload="auto" aria-label="GO AI intro">
-                <source src="/intro-video.mp4" type="video/mp4" />
-              </video>
+            <div className="svc-hero-media">
+              <img src="/services-hero.png" alt="" aria-hidden="true" />
             </div>
           </Reveal>
         </div>
@@ -148,9 +145,6 @@ export default function Services() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <ContactFaq />
-
       {/* Final CTA — Santorini wash */}
       <section className="cta-section">
         <div className="cta-bg" aria-hidden="true" />
@@ -171,10 +165,10 @@ export default function Services() {
 
       <style>{`
         .svc-hero-glow { position: absolute; inset: -12% -6% -16% -6%; z-index: 0; pointer-events: none; filter: blur(46px); opacity: 0.5; background: radial-gradient(60% 70% at 58% 32%, color-mix(in srgb, var(--brand) 24%, transparent), transparent 70%); }
-        .svc-hero-video { position: relative; z-index: 1; border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); background: var(--surface); animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
-        .svc-hero-video video { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-        @media (prefers-reduced-motion: reduce) { .svc-hero-video { animation: none; } }
-        @media (max-width: 900px) { .svc-hero-video { max-width: 560px; margin: 0 auto; } .svc-hero-video video { aspect-ratio: 16 / 9; } }
+        .svc-hero-media { position: relative; z-index: 1; border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); background: var(--surface); animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
+        .svc-hero-media img { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+        @media (prefers-reduced-motion: reduce) { .svc-hero-media { animation: none; } }
+        @media (max-width: 900px) { .svc-hero-media { max-width: 560px; margin: 0 auto; } .svc-hero-media img { aspect-ratio: 16 / 9; } }
         .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: stretch; }
         .cat-card { width: 100%; display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-8); text-decoration: none; transition: transform .24s cubic-bezier(.16,1,.3,1), box-shadow .24s ease, border-color .24s ease; }
         .cat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--brand-line); }

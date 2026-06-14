@@ -118,10 +118,8 @@ export default function Industries() {
 
           <Reveal delay={120} className="hero-visual" style={{ position: 'relative' }}>
             <div className="svc-hero-glow" aria-hidden="true" />
-            <div className="svc-hero-video">
-              <video ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline preload="auto" aria-label="GO AI intro">
-                <source src="/intro-video.mp4" type="video/mp4" />
-              </video>
+            <div className="svc-hero-media">
+              <img src="/industries-hero.png" alt="" aria-hidden="true" />
             </div>
             <span className="ind-fc fc-top"><Icon name="Sparkles" size={13} /> {tr({ EN: count + ' industries', GR: count + ' κλάδοι' })}</span>
             <span className="ind-fc fc-bot"><Icon name="MapPin" size={13} /> {t('ind_hero_chip2')}</span>
@@ -164,9 +162,9 @@ export default function Industries() {
       <style>{`
         /* video frame + glow (parity with /services) */
         .svc-hero-glow { position: absolute; inset: -12% -6% -16% -6%; z-index: 0; pointer-events: none; filter: blur(46px); opacity: 0.5; background: radial-gradient(60% 70% at 58% 32%, color-mix(in srgb, var(--brand) 24%, transparent), transparent 70%); }
-        .svc-hero-video { position: relative; z-index: 1; border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); background: var(--surface); animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
-        .svc-hero-video video { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-        /* floating proof chips over the video */
+        .svc-hero-media { position: relative; z-index: 1; border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); background: var(--surface); animation: heroFloat 7s ease-in-out infinite; will-change: transform; }
+        .svc-hero-media img { display: block; width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+        /* floating proof chips over the image */
         .ind-fc { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; font-size: var(--text-xs); font-weight: 700; color: var(--ink); background: color-mix(in srgb, var(--surface) 90%, transparent); border: 1px solid var(--line-2); border-radius: var(--radius-full); box-shadow: var(--shadow-md); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: heroFloat 6.5s ease-in-out infinite; }
         .ind-fc svg { color: var(--brand-ink); }
         .ind-fc.fc-top { top: 18px; left: -12px; }
@@ -177,9 +175,9 @@ export default function Industries() {
         .ind-quote { position: relative; margin: 0; padding: var(--space-5); border-left: 3px solid var(--brand-line); border-radius: var(--radius-md); background: var(--brand-soft); display: flex; flex-direction: column; gap: 8px; }
         .ind-quote .ind-quote-glyph { color: var(--brand-ink); opacity: 0.55; }
         .ind-quote p { font-size: var(--text-base); font-style: italic; line-height: 1.6; color: var(--ink); margin: 0; }
-        @media (prefers-reduced-motion: reduce) { .svc-hero-video, .ind-fc { animation: none; } }
+        @media (prefers-reduced-motion: reduce) { .svc-hero-media, .ind-fc { animation: none; } }
         @media (min-width: 861px) { .ind-flip .ind-feat-copy { order: 2; } .ind-flip .ind-feat-panel { order: 1; } }
-        @media (max-width: 900px) { .svc-hero-video { max-width: 560px; margin: 0 auto; } .svc-hero-video video { aspect-ratio: 16 / 9; } .ind-fc { display: none; } }
+        @media (max-width: 900px) { .svc-hero-media { max-width: 560px; margin: 0 auto; } .svc-hero-media img { aspect-ratio: 16 / 9; } .ind-fc { display: none; } }
         @media (max-width: 860px) { .industry-grid { grid-template-columns: 1fr !important; gap: var(--space-10) !important; } .ind-flip .ind-feat-copy, .ind-flip .ind-feat-panel { order: 0 !important; } }
       `}</style>
     </main>

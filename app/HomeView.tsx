@@ -3,6 +3,7 @@
    GO AI — Home: hero, Start Your Journey, sections
    ============================================================ */
 import type { ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Icon } from '@/components/ui/Icon';
 import { Reveal } from '@/components/ui/Reveal';
@@ -21,37 +22,42 @@ import type { Bilingual, PackageItem } from '@/types';
 
 /* ---- Browser showcase mockup (hero) — demo visual, copy stays EN ---- */
 function HeroShowcase() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(true);
+  const [muted, setMuted] = useState(true);
+  // React doesn't reliably set the muted *property* from the attribute — force it
+  // so muted autoplay works on load.
+  useEffect(() => { if (videoRef.current) videoRef.current.muted = true; }, []);
+  const togglePlay = () => {
+    const v = videoRef.current; if (!v) return;
+    if (v.paused) void v.play(); else v.pause();
+  };
+  const toggleSound = () => {
+    const v = videoRef.current; if (!v) return;
+    v.muted = !v.muted;
+    if (!v.muted && v.paused) void v.play(); // unmuting also resumes playback
+  };
   return (
     <Reveal delay={120}>
       <div style={{ position: 'relative', width: '100%', margin: '0 auto' }}>
         <div style={{ position: 'absolute', inset: '-8% 6% -14% 6%', background: 'radial-gradient(60% 70% at 50% 30%, color-mix(in srgb, var(--brand) 26%, transparent), transparent 70%)', filter: 'blur(40px)', opacity: 0.5, pointerEvents: 'none' }} />
-        <div className="hero-device" style={{ position: 'relative', background: 'var(--surface)', borderRadius: 'var(--radius-2xl)', border: '1px solid var(--line-2)', boxShadow: 'var(--shadow-lg)', overflow: 'hidden' }}>
-          <div style={{ height: 44, display: 'flex', alignItems: 'center', gap: 8, padding: '0 18px', borderBottom: '1px solid var(--line)', background: 'var(--surface-2)' }}>
-            {['#ff5f57', '#febc2e', '#28c840'].map((c) => <span key={c} style={{ width: 11, height: 11, borderRadius: '50%', background: c }} />)}
-            <div style={{ flex: 1, maxWidth: 320, height: 24, margin: '0 auto', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: 999, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-              <Icon name="Lock" size={11} style={{ color: 'var(--ink-3)' }} />
-              <span style={{ fontSize: 12, color: 'var(--ink-3)', fontFamily: 'var(--font-mono)' }}>santorinidreamvillas.gr</span>
-            </div>
-          </div>
-          <div style={{ position: 'relative', height: 440 }} className="showcase-body">
-            <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1400&q=80" alt="Sample villa website" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,12,24,0.36) 0%, rgba(8,12,24,0.12) 40%, rgba(8,12,24,0.62) 100%)' }} />
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 28px' }}>
-              <span style={{ color: '#fff', fontWeight: 800, fontSize: 16, letterSpacing: '-0.02em' }}>Santorini Dream</span>
-              <div style={{ display: 'flex', gap: 22 }} className="showcase-nav">
-                {['Villas', 'Gallery', 'Rates', 'Book'].map((tx) => <span key={tx} style={{ color: 'rgba(255,255,255,0.85)', fontSize: 13, fontWeight: 500 }}>{tx}</span>)}
-              </div>
-            </div>
-            <div style={{ position: 'absolute', left: 28, bottom: 28, right: 28, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span style={{ color: 'rgba(255,255,255,0.9)', fontSize: 12, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase' }}>Caldera views · Oia</span>
-              <h3 style={{ color: '#fff', fontSize: 'clamp(1.5rem, 3.4vw, 2.4rem)', fontWeight: 800, letterSpacing: '-0.02em', lineHeight: 1.05, maxWidth: '16ch' }}>Your private villa above the Aegean</h3>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', height: 42, padding: '0 22px', borderRadius: 999, background: 'var(--brand)', color: '#fff', fontSize: 14, fontWeight: 700 }}>Check availability</span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, height: 42, padding: '0 20px', borderRadius: 999, background: 'rgba(255,255,255,0.16)', backdropFilter: 'blur(8px)', color: '#fff', fontSize: 14, fontWeight: 600, border: '1px solid rgba(255,255,255,0.3)' }}>
-                  <Icon name="MessageCircle" size={15} /> WhatsApp
-                </span>
-              </div>
-            </div>
+        <div className="home-hero-video">
+          <video
+            ref={videoRef}
+            autoPlay muted loop playsInline preload="metadata" aria-label="GO AI intro"
+            onPlay={() => setPlaying(true)}
+            onPause={() => setPlaying(false)}
+            onVolumeChange={() => { const v = videoRef.current; if (v) setMuted(v.muted); }}
+          >
+            <source src="/intro-video-greek.mp4" type="video/mp4" />
+          </video>
+          <div className="hhv-controls">
+            <button type="button" onClick={togglePlay} aria-label={playing ? 'Pause video' : 'Play video'} className="hhv-btn">
+              <Icon name={playing ? 'Pause' : 'Play'} size={16} />
+            </button>
+            <button type="button" onClick={toggleSound} aria-label={muted ? 'Unmute video' : 'Mute video'} className="hhv-btn">
+              <Icon name={muted ? 'VolumeX' : 'Volume2'} size={16} />
+            </button>
           </div>
         </div>
         <div className="float-chip" style={{ position: 'absolute', right: -16, top: 96, background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)', padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -70,7 +76,14 @@ function HeroShowcase() {
             <p style={{ fontSize: 11, color: 'var(--ink-3)', marginTop: 3 }}>to launch</p>
           </div>
         </div>
-        <style>{`@media (max-width: 720px) { .showcase-body { height: 300px !important; } .float-chip { display: none !important; } .showcase-nav { display: none !important; } }`}</style>
+        <style>{`
+          .home-hero-video { position: relative; background: var(--surface); border-radius: var(--radius-2xl); border: 1px solid var(--line-2); box-shadow: var(--shadow-lg); overflow: hidden; }
+          .home-hero-video video { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+          .hhv-controls { position: absolute; bottom: 12px; right: 12px; z-index: 3; display: flex; gap: 8px; }
+          .hhv-btn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid color-mix(in srgb, #ffffff 28%, transparent); background: color-mix(in srgb, #0b0b14 52%, transparent); color: #fff; cursor: pointer; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background .2s ease, transform .2s ease; }
+          .hhv-btn:hover { background: color-mix(in srgb, #0b0b14 72%, transparent); transform: translateY(-1px); }
+          @media (max-width: 720px) { .float-chip { display: none !important; } }
+        `}</style>
       </div>
     </Reveal>
   );
