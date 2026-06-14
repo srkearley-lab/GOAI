@@ -82,6 +82,10 @@ export const CATALOG: Record<string, CatalogItem> = {
     label: { EN: 'AI Customer Journey', GR: 'AI Διαδρομή Πελάτη' }, price: { EN: 'From €75/month', GR: 'Από €75/μήνα' },
     best: { EN: 'Businesses wanting end-to-end flow', GR: 'Επιχειρήσεις που θέλουν ολοκληρωμένη ροή' },
     desc: { EN: 'A smarter journey from website visit to enquiry, proposal, follow-up and conversion.', GR: 'Μια εξυπνότερη διαδρομή από την επίσκεψη στο site έως το αίτημα, την πρόταση, το follow-up και τη μετατροπή.' } },
+  'crm-platform': { group: 'automation', icon: 'Users', amount: 50, recurring: true, unit: 'month',
+    label: { EN: 'CRM Platform', GR: 'Πλατφόρμα CRM' }, price: { EN: 'From €50/month', GR: 'Από €50/μήνα' },
+    best: { EN: 'Any local business juggling leads across WhatsApp, calls and email', GR: 'Κάθε τοπική επιχείρηση που διαχειρίζεται leads σε WhatsApp, κλήσεις και email' },
+    desc: { EN: 'A simple CRM that keeps every lead, customer and deal in one place — so nothing slips through the cracks. Flat €50/month.', GR: 'Ένα απλό CRM που κρατά κάθε lead, πελάτη και συμφωνία σε ένα σημείο — για να μη χάνεται τίποτα. Σταθερά €50/μήνα.' } },
 
   /* ---------------- SUPPORT & GROWTH ---------------- */
   'hosting-care': { group: 'support', icon: 'ShieldCheck', amount: 20, recurring: true, unit: 'month',
@@ -156,6 +160,7 @@ export const FEATURES: Record<string, { EN: string[]; GR: string[] }> = {
   /* ---- automation ---- */
   'simple-automation': { EN: ['Connect forms, email & WhatsApp', 'Auto-route new enquiries', 'No more manual copy-paste', 'No-code, managed for you'], GR: ['Σύνδεση φορμών, email & WhatsApp', 'Αυτόματη δρομολόγηση αιτημάτων', 'Τέλος στο χειροκίνητο copy-paste', 'No-code, διαχείριση από εμάς'] },
   'ai-customer-journey': { EN: ['Visit → enquiry → proposal flow', 'Automated follow-ups', 'WhatsApp & email touchpoints', 'End-to-end conversion tracking'], GR: ['Ροή επίσκεψη → αίτημα → πρόταση', 'Αυτόματα follow-up', 'Σημεία επαφής WhatsApp & email', 'Παρακολούθηση μετατροπών end-to-end'] },
+  'crm-platform': { EN: ['Every lead & contact in one place', 'Simple visual deal pipeline', 'WhatsApp & email history per contact', 'Reminders & follow-up tasks', 'Works on phone & desktop', 'Flat €50/month — unlimited team'], GR: ['Κάθε lead & επαφή σε ένα σημείο', 'Απλό οπτικό pipeline συμφωνιών', 'Ιστορικό WhatsApp & email ανά επαφή', 'Υπενθυμίσεις & εργασίες follow-up', 'Λειτουργεί σε κινητό & desktop', 'Σταθερά €50/μήνα — απεριόριστη ομάδα'] },
 
   /* ---- support & growth ---- */
   'extra-storage': { EN: ['Additional media storage', 'For galleries & video', 'Fast delivery (CDN)', 'Scales as you grow'], GR: ['Επιπλέον χώρος για media', 'Για gallery & βίντεο', 'Γρήγορη παράδοση (CDN)', 'Κλιμακώνεται με την ανάπτυξη'] },

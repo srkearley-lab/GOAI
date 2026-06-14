@@ -1,13 +1,14 @@
 'use server';
 /* ============================================================
    GO AI — proposal submission Server Action.
-   Captures the lead via the first configured channel that accepts it:
-     1. Firestore (FIREBASE_* env)       — preferred structured store
-     2. Webhook   (LEAD_WEBHOOK_URL env) — POST the lead as JSON
-   Returns { ok:true } ONLY when a channel actually accepts the lead.
-   If nothing is configured (or every channel fails) it returns
-   { ok:false, error:'delivery' } so the UI surfaces the prefilled
-   WhatsApp fallback — we never fake success and silently drop a lead.
+   On every valid submit it emails the lead to the team (Resend) AND persists
+   it (Firestore) — both run together so a notification always goes out:
+     • Email     (RESEND_API_KEY)     — notify RESEND_TO (support@go-ai.gr)
+     • Firestore (FIREBASE_* env)     — structured store (optional)
+     • Webhook   (LEAD_WEBHOOK_URL)   — last-resort fallback
+   Returns { ok:true } only when a channel actually accepts the lead; otherwise
+   { ok:false, error:'delivery' } so the UI surfaces the prefilled WhatsApp
+   fallback — we never fake success and silently drop a lead.
    ============================================================ */
 import { FieldValue } from 'firebase-admin/firestore';
 import { getDb } from '@/lib/firebaseAdmin';
@@ -86,19 +87,82 @@ async function deliverToWebhook(lead: Lead): Promise<boolean> {
   }
 }
 
+/** HTML body for the lead-notification email (user input is escaped). */
+function buildEmailHtml(lead: Lead): string {
+  const esc = (s: string) => s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch] as string));
+  const name = [lead.firstName, lead.lastName].filter(Boolean).join(' ');
+  const row = (label: string, val: string) => (val ? `<tr><td style="padding:6px 14px 6px 0;color:#6b7280;font-size:13px;white-space:nowrap;vertical-align:top">${label}</td><td style="padding:6px 0;color:#16181d;font-size:13px">${esc(val)}</td></tr>` : '');
+  const services = lead.selectedProposalItems.length
+    ? '<ul style="margin:6px 0 0;padding-left:18px;color:#16181d;font-size:13px">' + lead.selectedProposalItems.map((i) => `<li style="margin:2px 0">${esc(i.label || i.id)}</li>`).join('') + '</ul>'
+    : '<span style="color:#6b7280;font-size:13px">— none selected (wants a recommendation)</span>';
+  const est = [lead.estOneoff ? `€${lead.estOneoff.toLocaleString('el-GR')} one-off` : '', lead.estMonthly ? `€${lead.estMonthly.toLocaleString('el-GR')}/mo` : ''].filter(Boolean).join(' · ') || '—';
+  const block = (label: string, val: string) => (val ? `<div style="margin-top:14px"><div style="color:#6b7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">${label}</div><div style="color:#16181d;font-size:13px;margin-top:4px;white-space:pre-wrap">${esc(val)}</div></div>` : '');
+  return `<!doctype html><html><body style="margin:0;background:#f4f5f7;padding:24px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <div style="max-width:600px;margin:0 auto;background:#fff;border:1px solid #e1e3ea;border-radius:14px;overflow:hidden">
+    <div style="background:#4f46e5;padding:18px 22px;color:#fff">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.85">GO AI · New proposal request</div>
+      <div style="font-size:20px;font-weight:800;margin-top:4px">${esc(lead.businessName || name || 'New lead')}</div>
+    </div>
+    <div style="padding:20px 22px">
+      <table style="width:100%;border-collapse:collapse">
+        ${row('Name', name)}${row('Business', lead.businessName)}${row('Type', lead.businessType)}${row('Location', lead.location)}${row('Email', lead.email)}${row('Phone / WhatsApp', lead.phoneWhatsapp)}${row('Existing site', lead.existingWebsiteUrl)}${row('Language', lead.language)}
+      </table>
+      <div style="margin-top:16px"><div style="color:#6b7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">Selected services</div>${services}</div>
+      <div style="margin-top:14px"><div style="color:#6b7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.04em">Estimate</div><div style="color:#4f46e5;font-size:14px;font-weight:800;margin-top:4px">${est}</div></div>
+      ${block('Needs', lead.needsHelp)}${block('Message', lead.message)}
+    </div>
+    <div style="padding:12px 22px;background:#f4f5f7;color:#8b92a0;font-size:11px">Sent from the GO AI contact wizard · ${esc(lead.source)}</div>
+  </div></body></html>`;
+}
+
+/** Email the lead to the team via the Resend REST API (no SDK dependency). */
+async function deliverToEmail(lead: Lead): Promise<boolean> {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return false;
+  const from = process.env.RESEND_FROM || 'GO AI <leads@updates.go-ai.gr>';
+  const to = process.env.RESEND_TO || 'support@go-ai.gr';
+  const name = [lead.firstName, lead.lastName].filter(Boolean).join(' ');
+  const body: Record<string, unknown> = {
+    from,
+    to: [to],
+    subject: `New proposal request — ${lead.businessName || name || 'New lead'}`,
+    html: buildEmailHtml(lead),
+  };
+  if (lead.email) body.reply_to = lead.email;
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(8000),
+    });
+    // eslint-disable-next-line no-console
+    if (!res.ok) console.warn('[GO AI] Resend email failed:', res.status);
+    return res.ok;
+  } catch {
+    // eslint-disable-next-line no-console
+    console.warn('[GO AI] Resend email request failed.');
+    return false;
+  }
+}
+
 export async function submitProposal(input: ProposalRequestInput): Promise<SubmitResult> {
   const invalid = validate(input);
   if (invalid) return { ok: false, error: `validation:${invalid}` };
 
   const lead = buildLead(input);
 
-  // Capture via the first channel that succeeds.
-  if (await deliverToFirestore(lead)) return { ok: true, id: 'received' };
-  if (await deliverToWebhook(lead)) return { ok: true, id: 'received' };
+  // Email the team (Resend) and persist (Firestore) together — the email always
+  // fires so the owner is notified on every valid submit.
+  const [emailed, stored] = await Promise.all([deliverToEmail(lead), deliverToFirestore(lead)]);
+  let delivered = emailed || stored;
+  if (!delivered) delivered = await deliverToWebhook(lead);
+
+  if (delivered) return { ok: true, id: 'received' };
 
   // Nothing accepted the lead — do NOT fake success (that silently drops it).
   // The UI shows the prefilled WhatsApp fallback so the lead still reaches us.
   // eslint-disable-next-line no-console
-  console.warn(`[GO AI] proposal not delivered — no channel configured (hasEmail=${!!lead.email}, hasPhone=${!!lead.phoneWhatsapp}). UI falls back to WhatsApp.`);
+  console.warn(`[GO AI] proposal not delivered — no channel succeeded (hasEmail=${!!lead.email}, hasPhone=${!!lead.phoneWhatsapp}). UI falls back to WhatsApp.`);
   return { ok: false, error: 'delivery' };
 }

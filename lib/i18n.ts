@@ -82,7 +82,7 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     /* hero */
     hero_badge: 'Now taking new clients in Greece',
     hero_headline_a: 'AI-powered websites for ', hero_headline_b: 'local businesses in Greece',
-    hero_sub: 'Premium websites, AI automation and SEO — live in 7 days, managed from your phone.',
+    hero_sub: 'Premium websites, AI automation, CRM and SEO — live in 7 days.',
     proof_1: 'Websites live in 7 days', proof_2: 'WhatsApp-managed', proof_3: 'Local SEO included', proof_4: 'No tech skills needed',
 
     /* start your journey */
@@ -222,6 +222,18 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     /* budget options */
     budget_opts: ['Not sure yet', 'Under €500', '€500 – €1,500', '€1,500 – €3,000', '€3,000+'],
 
+    /* crm service page */
+    crm_eyebrow: 'CRM', crm_title: 'A CRM your team will actually use',
+    crm_intro: 'Keep every lead, customer and conversation in one place — connected to your WhatsApp and email. Flat €50/month, set up for you in days.',
+    crm_see_demo: 'See it live',
+    crm_why1_t: 'Every lead in one place', crm_why1_b: 'Calls, WhatsApp, email and website enquiries land in one simple inbox — nothing slips through the cracks.',
+    crm_why2_t: 'Works with WhatsApp & email', crm_why2_b: 'See the full history with each customer and follow up in a click, right where you already talk to them.',
+    crm_why3_t: 'Flat €50/month', crm_why3_b: 'One simple price for your whole team — no per-seat fees, no surprises, cancel anytime.',
+    crm_why4_t: 'Live in days, not months', crm_why4_b: 'We set it up, import your contacts and show your team how to use it. You just start closing.',
+    crm_price_tag: 'Simple pricing', crm_price_title: 'Your whole CRM for €50/month',
+    crm_price_note: 'Flat monthly price · unlimited team members · cancel anytime. Setup & contact import included.',
+    crm_cta: 'Get the CRM',
+
     /* footer */
     foot_tagline: 'AI-powered websites and automation for businesses in Greece.',
     foot_whatsapp: 'WhatsApp us', foot_pages: 'Pages', foot_services: 'Services', foot_contact: 'Contact',
@@ -302,7 +314,7 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
 
     hero_badge: 'Δεχόμαστε νέους πελάτες στην Ελλάδα',
     hero_headline_a: 'AI-powered ιστοσελίδες για ', hero_headline_b: 'τοπικές επιχειρήσεις στην Ελλάδα',
-    hero_sub: 'Premium ιστοσελίδες, AI αυτοματισμοί και SEO — online σε 7 ημέρες, με διαχείριση από το κινητό σας.',
+    hero_sub: 'Premium ιστοσελίδες, AI αυτοματισμοί, CRM και SEO — online σε 7 ημέρες.',
     proof_1: 'Ιστοσελίδες σε 7 ημέρες', proof_2: 'Διαχείριση μέσω WhatsApp', proof_3: 'Τοπικό SEO περιλαμβάνεται', proof_4: 'Χωρίς τεχνικές γνώσεις',
 
     journey_tag: 'Φτιάξτε την πρότασή σας',
@@ -430,6 +442,18 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
     success_another: 'Νέο αίτημα', success_home: 'Αρχική',
 
     budget_opts: ['Δεν είμαι σίγουρος/η ακόμα', 'Κάτω από €500', '€500 – €1.500', '€1.500 – €3.000', '€3.000+'],
+
+    /* crm service page */
+    crm_eyebrow: 'CRM', crm_title: 'Ένα CRM που η ομάδα σας θα χρησιμοποιεί πραγματικά',
+    crm_intro: 'Κρατήστε κάθε lead, πελάτη και συνομιλία σε ένα σημείο — συνδεδεμένο με το WhatsApp και το email σας. Σταθερά €50/μήνα, στημένο για εσάς σε ημέρες.',
+    crm_see_demo: 'Δείτε το ζωντανά',
+    crm_why1_t: 'Κάθε lead σε ένα σημείο', crm_why1_b: 'Κλήσεις, WhatsApp, email και αιτήματα από το site καταλήγουν σε ένα απλό inbox — δεν χάνεται τίποτα.',
+    crm_why2_t: 'Λειτουργεί με WhatsApp & email', crm_why2_b: 'Δείτε όλο το ιστορικό με κάθε πελάτη και κάντε follow-up με ένα κλικ, εκεί που ήδη μιλάτε.',
+    crm_why3_t: 'Σταθερά €50/μήνα', crm_why3_b: 'Μία απλή τιμή για όλη την ομάδα σας — χωρίς χρέωση ανά χρήστη, χωρίς εκπλήξεις, ακύρωση όποτε θέλετε.',
+    crm_why4_t: 'Έτοιμο σε ημέρες, όχι μήνες', crm_why4_b: 'Το στήνουμε, εισάγουμε τις επαφές σας και δείχνουμε στην ομάδα πώς να το χρησιμοποιεί. Εσείς απλά κλείνετε συμφωνίες.',
+    crm_price_tag: 'Απλή τιμολόγηση', crm_price_title: 'Όλο το CRM σας με €50/μήνα',
+    crm_price_note: 'Σταθερή μηνιαία τιμή · απεριόριστα μέλη ομάδας · ακύρωση όποτε θέλετε. Περιλαμβάνεται στήσιμο & εισαγωγή επαφών.',
+    crm_cta: 'Αποκτήστε το CRM',
 
     foot_tagline: 'AI-powered ιστοσελίδες και αυτοματισμοί για επιχειρήσεις στην Ελλάδα.',
     foot_whatsapp: 'WhatsApp', foot_pages: 'Σελίδες', foot_services: 'Υπηρεσίες', foot_contact: 'Επικοινωνία',
