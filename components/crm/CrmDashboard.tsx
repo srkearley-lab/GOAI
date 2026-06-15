@@ -205,7 +205,7 @@ export function CrmDashboard() {
       <Panel title={L('Integrations', 'Ενσωματώσεις')}><div className="cd-feed">{integ.map((it) => (
         <div key={it.name} className="cd-setrow"><span className="icon-badge sm" style={{ width: 30, height: 30, borderRadius: 8 }}><Icon name={it.icon} size={15} /></span><span style={{ flex: 1, fontSize: 12.5, fontWeight: 600, color: 'var(--ink)' }}>{it.name}</span>{it.on ? <span className="cd-conn"><Icon name="Check" size={12} /> {L('Connected', 'Συνδεδεμένο')}</span> : <span className="cd-stage">{L('Connect', 'Σύνδεση')}</span>}</div>
       ))}</div></Panel>
-      <Panel title={L('Plan', 'Πλάνο')}><div className="cd-setrow"><span className="glass-badge" style={{ width: 30, height: 30, borderRadius: 8 }}><Icon name="Users" size={15} /></span><span style={{ flex: 1 }}><strong style={{ display: 'block', fontSize: 12.5, color: 'var(--ink)' }}>GO AI CRM</strong><span style={{ fontSize: 11, color: 'var(--ink-3)' }}>€50/{L('month', 'μήνα')} · {L('unlimited team', 'απεριόριστη ομάδα')}</span></span><span className="cd-conn"><Icon name="Check" size={12} /> {L('Active', 'Ενεργό')}</span></div></Panel>
+      <Panel title={L('Plan', 'Πλάνο')}><div className="cd-setrow"><span className="glass-badge" style={{ width: 30, height: 30, borderRadius: 8 }}><Icon name="Users" size={15} /></span><span style={{ flex: 1 }}><strong style={{ display: 'block', fontSize: 12.5, color: 'var(--ink)' }}>GO AI CRM</strong><span style={{ fontSize: 11, color: 'var(--ink-3)' }}>€50/{L('month', 'μήνα')} · {L('+€20/licence', '+€20/άδεια')}</span></span><span className="cd-conn"><Icon name="Check" size={12} /> {L('Active', 'Ενεργό')}</span></div></Panel>
     </div>
   ); };
 

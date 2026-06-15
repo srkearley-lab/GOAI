@@ -16,6 +16,8 @@ import { AddToProposalButton } from '@/components/proposal/AddToProposalButton';
 import { SelectWebsiteButton } from '@/components/proposal/SelectWebsiteButton';
 import { RequestProposalButton } from '@/components/chrome/RequestProposalButton';
 import { RotatingWord } from '@/components/home/RotatingWord';
+import { CrmDashboard } from '@/components/crm/CrmDashboard';
+import { CrmPriceTiers } from '@/components/crm/CrmPriceTiers';
 import { SITE as DATA } from '@/data/content';
 import { WHATSAPP } from '@/lib/whatsapp';
 import type { Bilingual, PackageItem } from '@/types';
@@ -396,6 +398,21 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CRM */}
+      <section className="hero-grid crm-home" style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="how-glow" aria-hidden="true" />
+        <div className="container crm-home-content" style={{ position: 'relative', zIndex: 1 }}>
+          <SectionHeader tag={t('sec_crm_tag')} title={t('sec_crm_title')} description={t('sec_crm_desc')} />
+          <Reveal><CrmDashboard /></Reveal>
+          <Reveal className="crm-home-foot">
+            <CrmPriceTiers />
+            <div className="crm-home-cta">
+              <Link to="/services/crm" className="btn btn-primary btn-lg">{t('sec_crm_all')} <Icon name="ArrowRight" size={17} /></Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* How it works */}
       <section className="hero-grid how-section">
         <div className="how-glow" aria-hidden="true" />
@@ -415,6 +432,10 @@ export default function Home() {
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
         @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 560px) { .grid-3 { grid-template-columns: 1fr; } }
+        .crm-home { padding: var(--section-y) 0; border-bottom: 1px solid var(--line); }
+        .crm-home-content { display: flex; flex-direction: column; gap: var(--space-10); }
+        .crm-home-foot { display: flex; flex-direction: column; gap: var(--space-6); align-items: center; width: 100%; max-width: 640px; margin: 0 auto; }
+        .crm-home-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
       `}</style>
     </main>
   );

@@ -2,7 +2,7 @@
 /* ============================================================
    GO AI — /services/crm: dedicated CRM service page.
    Hero (static image) + a full interactive CrmDashboard section,
-   why-points, a €50/mo pricing card, and the shared final CTA. Reuses the premium
+   why-points, a €350 + €50/mo pricing card, and the shared final CTA. Reuses the premium
    hero/cta classes from the other service pages.
    ============================================================ */
 import { useApp } from '@/lib/store';
@@ -12,6 +12,7 @@ import { Icon } from '@/components/ui/Icon';
 import { RequestProposalButton } from '@/components/chrome/RequestProposalButton';
 import { ContinueWithService } from '@/components/services/ContinueWithService';
 import { CrmDashboard } from '@/components/crm/CrmDashboard';
+import { CrmPriceTiers } from '@/components/crm/CrmPriceTiers';
 import { catFeatures } from '@/lib/catalog';
 import { WHATSAPP } from '@/lib/whatsapp';
 
@@ -44,8 +45,8 @@ export default function CrmView() {
             </div>
             <div className="hero-proof">
               {[
-                { i: 'Wallet', x: tr({ EN: 'Flat €50/month', GR: 'Σταθερά €50/μήνα' }) },
-                { i: 'Users', x: tr({ EN: 'Unlimited team', GR: 'Απεριόριστη ομάδα' }) },
+                { i: 'Wallet', x: tr({ EN: 'From €350 + €50/mo', GR: 'Από €350 + €50/μήνα' }) },
+                { i: 'Users', x: tr({ EN: '+€20/mo per licence', GR: '+€20/μήνα ανά άδεια' }) },
                 { i: 'Zap', x: tr({ EN: 'Live in days', GR: 'Έτοιμο σε ημέρες' }) },
               ].map((p) => (
                 <span key={p.x} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-sm)', color: 'var(--ink-3)', fontWeight: 500 }}>
@@ -102,10 +103,7 @@ export default function CrmView() {
             <h2 style={{ fontSize: 'var(--text-2xl)', fontWeight: 800, lineHeight: 1.12, letterSpacing: '-0.025em', color: 'var(--ink)' }}>{t('crm_price_title')}</h2>
           </Reveal>
           <Reveal delay={80} className="card crm-price">
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4.5vw, 2.5rem)', fontWeight: 800, letterSpacing: '-0.04em', color: 'var(--ink)', lineHeight: 1 }}>€50</span>
-              <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'var(--ink-3)' }}>/{lang === 'GR' ? 'μήνα' : 'month'}</span>
-            </div>
+            <CrmPriceTiers />
             <ul className="crm-price-list">
               {features.map((f, i) => (
                 <li key={i}><Icon name="Check" size={15} stroke={2.5} style={{ color: 'var(--brand-ink)', flexShrink: 0, marginTop: 2 }} /> {f}</li>
@@ -143,7 +141,7 @@ export default function CrmView() {
         .crm-why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); align-items: stretch; }
         @media (max-width: 900px) { .crm-why-grid { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 560px) { .crm-why-grid { grid-template-columns: 1fr; } }
-        .crm-price { width: 100%; max-width: 440px; padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-5); }
+        .crm-price { width: 100%; max-width: 480px; padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-5); }
         .crm-price-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-5); }
         @media (max-width: 560px) { .crm-price-list { grid-template-columns: 1fr; } }
         .crm-price-list li { display: flex; align-items: flex-start; gap: 8px; font-size: var(--text-sm); color: var(--ink-2); line-height: 1.5; }

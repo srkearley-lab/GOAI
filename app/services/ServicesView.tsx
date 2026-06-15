@@ -10,8 +10,8 @@ import { Link } from '@/components/ui/Link';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { useApp } from '@/lib/store';
 import { RequestProposalButton } from '@/components/chrome/RequestProposalButton';
-import { cat, GROUPS, GROUP_TITLES } from '@/lib/catalog';
-import { SERVICE_CATEGORIES, CATEGORY_SLUGS } from '@/data/serviceCategories';
+import { cat, GROUPS, GROUP_TITLES, catFeatures } from '@/lib/catalog';
+import { SERVICE_CATEGORIES } from '@/data/serviceCategories';
 import { SITE as DATA } from '@/data/content';
 import { WHATSAPP } from '@/lib/whatsapp';
 import type { Diff, StepItem } from '@/types';
@@ -40,6 +40,33 @@ function CategoryHubCard({ slug, delay }: { slug: string; delay: number }) {
         </ul>
         <div className="cat-card-foot">
           <span className="chip chip-brand chip-mini">{tr({ EN: ids.length + ' services', GR: ids.length + ' υπηρεσίες' })}</span>
+          <span className="link-arrow">{t('svc_explore')} <Icon name="ArrowRight" size={15} /></span>
+        </div>
+      </Link>
+    </Reveal>
+  );
+}
+
+/* CRM as a hub card (sits at position 2 in the grid) — links to /services/crm. */
+function CrmHubCard({ delay }: { delay: number }) {
+  const { tr, t, lang } = useApp();
+  const examples = (catFeatures('crm-platform', lang) || []).slice(0, 4);
+  return (
+    <Reveal delay={delay} style={{ display: 'flex' }}>
+      <Link to="/services/crm" className="card cat-card">
+        <div className="cat-card-head">
+          <span className="glass-badge"><Icon name="Users" size={24} /></span>
+          <span className="cat-card-arrow"><Icon name="ArrowUpRight" size={18} /></span>
+        </div>
+        <h3>{tr({ EN: 'CRM Platform', GR: 'Πλατφόρμα CRM' })}</h3>
+        <p className="cat-card-tag">{tr({ EN: 'Every lead, customer and conversation in one place', GR: 'Κάθε lead, πελάτης και συνομιλία σε ένα σημείο' })}</p>
+        <ul className="cat-card-list">
+          {examples.map((f, i) => (
+            <li key={i}><Icon name="Check" size={12} stroke={3} /> {f}</li>
+          ))}
+        </ul>
+        <div className="cat-card-foot">
+          <span className="chip chip-brand chip-mini">{tr({ EN: 'New', GR: 'Νέο' })}</span>
           <span className="link-arrow">{t('svc_explore')} <Icon name="ArrowRight" size={15} /></span>
         </div>
       </Link>
@@ -111,20 +138,22 @@ export default function Services() {
         <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-12)' }}>
           <SectionHeader tag={t('svc_tag')} title={t('svc_title')} description={t('svc_intro_sub')} />
           <div className="cat-grid">
-            {CATEGORY_SLUGS.map((slug, i) => <CategoryHubCard key={slug} slug={slug} delay={i * 60} />)}
+            <CategoryHubCard slug="websites" delay={0} />
+            <CrmHubCard delay={60} />
+            <CategoryHubCard slug="digital" delay={120} />
+            <CategoryHubCard slug="automation" delay={180} />
           </div>
           <Reveal>
-            <Link to="/services/crm" className="card crm-feature">
-              <span className="glass-badge"><Icon name="Users" size={26} /></span>
-              <div className="crm-feature-copy">
-                <div className="crm-feature-head">
-                  <h3>{tr({ EN: 'CRM Platform', GR: 'Πλατφόρμα CRM' })}</h3>
-                  <span className="chip chip-brand chip-mini">{tr({ EN: 'New', GR: 'Νέο' })}</span>
+            <Link to="/services/support" className="card feature-banner">
+              <span className="glass-badge"><Icon name="ShieldCheck" size={26} /></span>
+              <div className="feature-banner-copy">
+                <div className="feature-banner-head">
+                  <h3>{tr(SERVICE_CATEGORIES.support.seoTitle)}</h3>
                 </div>
-                <p>{tr({ EN: 'Keep every lead, customer and conversation in one place — for a flat €50/month.', GR: 'Κρατήστε κάθε lead, πελάτη και συνομιλία σε ένα σημείο — με σταθερά €50/μήνα.' })}</p>
+                <p>{tr(SERVICE_CATEGORIES.support.headline)}</p>
               </div>
-              <div className="crm-feature-foot">
-                <span className="chip chip-brand chip-mini">€50/{tr({ EN: 'mo', GR: 'μήνα' })}</span>
+              <div className="feature-banner-foot">
+                <span className="chip chip-brand chip-mini">{tr({ EN: GROUPS.support.length + ' services', GR: GROUPS.support.length + ' υπηρεσίες' })}</span>
                 <span className="link-arrow">{t('svc_explore')} <Icon name="ArrowRight" size={15} /></span>
               </div>
             </Link>
@@ -201,16 +230,16 @@ export default function Services() {
         .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
         @media (max-width: 860px) { .cat-grid { grid-template-columns: 1fr; } .why-grid { grid-template-columns: 1fr; } .cat-card-list { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 480px) { .cat-card-list { grid-template-columns: 1fr; } }
-        /* featured CRM card */
-        .crm-feature { display: flex; align-items: center; gap: var(--space-6); padding: var(--space-6) var(--space-8); text-decoration: none; }
-        .crm-feature .glass-badge { flex-shrink: 0; }
-        .crm-feature-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
-        .crm-feature-head { display: flex; align-items: center; gap: 10px; }
-        .crm-feature-head h3 { font-size: var(--text-lg); font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
-        .crm-feature-copy p { font-size: var(--text-sm); color: var(--ink-2); line-height: 1.55; }
-        .crm-feature-foot { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
-        .crm-feature:hover { box-shadow: var(--shadow-lg); border-color: var(--brand-line); transform: translateY(-3px); }
-        @media (max-width: 640px) { .crm-feature { flex-direction: column; align-items: flex-start; } .crm-feature-foot { flex-direction: row; align-self: stretch; justify-content: space-between; align-items: center; } }
+        /* featured banner — last category (Support & Growth) */
+        .feature-banner { display: flex; align-items: center; gap: var(--space-6); padding: var(--space-6) var(--space-8); text-decoration: none; }
+        .feature-banner .glass-badge { flex-shrink: 0; }
+        .feature-banner-copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+        .feature-banner-head { display: flex; align-items: center; gap: 10px; }
+        .feature-banner-head h3 { font-size: var(--text-lg); font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
+        .feature-banner-copy p { font-size: var(--text-sm); color: var(--ink-2); line-height: 1.55; }
+        .feature-banner-foot { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; flex-shrink: 0; }
+        .feature-banner:hover { box-shadow: var(--shadow-lg); border-color: var(--brand-line); transform: translateY(-3px); }
+        @media (max-width: 640px) { .feature-banner { flex-direction: column; align-items: flex-start; } .feature-banner-foot { flex-direction: row; align-self: stretch; justify-content: space-between; align-items: center; } }
       `}</style>
     </main>
   );

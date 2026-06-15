@@ -58,7 +58,7 @@ export function TeamView() {
 
       <p className="cv-team-note">
         <Icon name="Shield" size={13} />
-        {L('Unlimited team members included on your €50/month plan.', 'Απεριόριστα μέλη ομάδας στο πλάνο των €50/μήνα.')}
+        {L('Add team members for €20/month each — on your €50/month plan.', 'Προσθήκη μελών €20/μήνα ο καθένας — στο πλάνο των €50/μήνα.')}
       </p>
 
       <style>{`

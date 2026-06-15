@@ -224,15 +224,19 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
 
     /* crm service page */
     crm_eyebrow: 'CRM', crm_title: 'A CRM your team will actually use',
-    crm_intro: 'Keep every lead, customer and conversation in one place — connected to your WhatsApp and email. Flat €50/month, set up for you in days.',
+    crm_intro: 'Keep every lead, customer and conversation in one place — connected to your WhatsApp and email. Set up for you in days, from €350 + €50/month.',
     crm_see_demo: 'See it live',
     crm_why1_t: 'Every lead in one place', crm_why1_b: 'Calls, WhatsApp, email and website enquiries land in one simple inbox — nothing slips through the cracks.',
     crm_why2_t: 'Works with WhatsApp & email', crm_why2_b: 'See the full history with each customer and follow up in a click, right where you already talk to them.',
-    crm_why3_t: 'Flat €50/month', crm_why3_b: 'One simple price for your whole team — no per-seat fees, no surprises, cancel anytime.',
+    crm_why3_t: 'Simple, fair pricing', crm_why3_b: '€350 one-off setup, then €50/month — add team licences for €20/month each. Cancel anytime.',
     crm_why4_t: 'Live in days, not months', crm_why4_b: 'We set it up, import your contacts and show your team how to use it. You just start closing.',
-    crm_price_tag: 'Simple pricing', crm_price_title: 'Your whole CRM for €50/month',
-    crm_price_note: 'Flat monthly price · unlimited team members · cancel anytime. Setup & contact import included.',
+    crm_price_tag: 'Simple pricing', crm_price_title: 'Set up your CRM from €350 + €50/month',
+    crm_price_note: 'One-off €350 setup (incl. contact import) · €50/month maintenance · +€20/month per additional licence · cancel anytime.',
     crm_cta: 'Get the CRM',
+    crm_price_setup: 'one-off setup', crm_price_maint: 'maintenance', crm_price_licence: 'per extra licence',
+    sec_crm_tag: 'CRM', sec_crm_title: 'A CRM your team will use',
+    sec_crm_desc: 'Every lead and conversation in one place. Take the live sample for a spin.',
+    sec_crm_all: 'Explore the CRM',
 
     /* footer */
     foot_tagline: 'AI-powered websites and automation for businesses in Greece.',
@@ -445,15 +449,19 @@ export const T: Record<Lang, Record<string, string | string[]>> = {
 
     /* crm service page */
     crm_eyebrow: 'CRM', crm_title: 'Ένα CRM που η ομάδα σας θα χρησιμοποιεί πραγματικά',
-    crm_intro: 'Κρατήστε κάθε lead, πελάτη και συνομιλία σε ένα σημείο — συνδεδεμένο με το WhatsApp και το email σας. Σταθερά €50/μήνα, στημένο για εσάς σε ημέρες.',
+    crm_intro: 'Κρατήστε κάθε lead, πελάτη και συνομιλία σε ένα σημείο — συνδεδεμένο με το WhatsApp και το email σας. Στημένο για εσάς σε ημέρες, από €350 + €50/μήνα.',
     crm_see_demo: 'Δείτε το ζωντανά',
     crm_why1_t: 'Κάθε lead σε ένα σημείο', crm_why1_b: 'Κλήσεις, WhatsApp, email και αιτήματα από το site καταλήγουν σε ένα απλό inbox — δεν χάνεται τίποτα.',
     crm_why2_t: 'Λειτουργεί με WhatsApp & email', crm_why2_b: 'Δείτε όλο το ιστορικό με κάθε πελάτη και κάντε follow-up με ένα κλικ, εκεί που ήδη μιλάτε.',
-    crm_why3_t: 'Σταθερά €50/μήνα', crm_why3_b: 'Μία απλή τιμή για όλη την ομάδα σας — χωρίς χρέωση ανά χρήστη, χωρίς εκπλήξεις, ακύρωση όποτε θέλετε.',
+    crm_why3_t: 'Απλή, δίκαιη τιμολόγηση', crm_why3_b: '€350 εφάπαξ στήσιμο, μετά €50/μήνα — επιπλέον άδειες ομάδας €20/μήνα η καθεμία. Ακύρωση όποτε θέλετε.',
     crm_why4_t: 'Έτοιμο σε ημέρες, όχι μήνες', crm_why4_b: 'Το στήνουμε, εισάγουμε τις επαφές σας και δείχνουμε στην ομάδα πώς να το χρησιμοποιεί. Εσείς απλά κλείνετε συμφωνίες.',
-    crm_price_tag: 'Απλή τιμολόγηση', crm_price_title: 'Όλο το CRM σας με €50/μήνα',
-    crm_price_note: 'Σταθερή μηνιαία τιμή · απεριόριστα μέλη ομάδας · ακύρωση όποτε θέλετε. Περιλαμβάνεται στήσιμο & εισαγωγή επαφών.',
+    crm_price_tag: 'Απλή τιμολόγηση', crm_price_title: 'Στήστε το CRM σας από €350 + €50/μήνα',
+    crm_price_note: 'Εφάπαξ στήσιμο €350 (με εισαγωγή επαφών) · €50/μήνα συντήρηση · +€20/μήνα ανά επιπλέον άδεια · ακύρωση όποτε θέλετε.',
     crm_cta: 'Αποκτήστε το CRM',
+    crm_price_setup: 'εφάπαξ στήσιμο', crm_price_maint: 'συντήρηση', crm_price_licence: 'ανά επιπλέον άδεια',
+    sec_crm_tag: 'CRM', sec_crm_title: 'Ένα CRM για την ομάδα σας',
+    sec_crm_desc: 'Κάθε lead και συνομιλία σε ένα σημείο. Δοκιμάστε το ζωντανό δείγμα.',
+    sec_crm_all: 'Δείτε το CRM',
 
     foot_tagline: 'AI-powered ιστοσελίδες και αυτοματισμοί για επιχειρήσεις στην Ελλάδα.',
     foot_whatsapp: 'WhatsApp', foot_pages: 'Σελίδες', foot_services: 'Υπηρεσίες', foot_contact: 'Επικοινωνία',
