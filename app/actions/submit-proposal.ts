@@ -10,10 +10,13 @@
    { ok:false, error:'delivery' } so the UI surfaces the prefilled WhatsApp
    fallback — we never fake success and silently drop a lead.
    ============================================================ */
+import { after } from 'next/server';
 import { FieldValue } from 'firebase-admin/firestore';
 import { getDb } from '@/lib/firebaseAdmin';
 import { catAmount, catRecurring } from '@/lib/catalog';
-import type { ProposalRequestInput, SubmitResult } from '@/types';
+import { sendEmail } from '@/lib/resend';
+import { enqueueGeneration } from '@/lib/generation';
+import type { ProposalRequestInput, SubmitResult, ProposalLead, GenerationStatus } from '@/types';
 
 const cap = (s: unknown, n: number): string => (typeof s === 'string' ? s.slice(0, n) : '');
 
@@ -28,7 +31,7 @@ function validate(p: ProposalRequestInput): string | null {
 }
 
 /** Normalized, length-capped lead record shared by every delivery channel. */
-function buildLead(input: ProposalRequestInput) {
+function buildLead(input: ProposalRequestInput): ProposalLead {
   const items = Array.isArray(input.selectedProposalItems) ? input.selectedProposalItems : [];
   const ids = items.map((i) => i.id);
   const estOneoff = ids.filter((id) => !catRecurring(id)).reduce((sum, id) => sum + catAmount(id), 0);
@@ -54,17 +57,28 @@ function buildLead(input: ProposalRequestInput) {
 
 type Lead = ReturnType<typeof buildLead>;
 
-/** Persist to Firestore if FIREBASE_* credentials are configured. */
-async function deliverToFirestore(lead: Lead): Promise<boolean> {
+/** Persist to Firestore if FIREBASE_* credentials are configured. Returns the
+ *  new document id (the generation brief id) so the agent can be tracked. */
+async function deliverToFirestore(lead: Lead): Promise<string | null> {
   const db = getDb();
-  if (!db) return false;
+  if (!db) return null;
+  // Only seed a generation record when the agent is actually wired up, so we
+  // don't leave perpetually-"queued" docs (or promise a sample) before launch.
+  const gen = process.env.HERMES_VPS_ENDPOINT
+    ? { generation: { status: 'queued' as GenerationStatus, updatedAt: FieldValue.serverTimestamp() } }
+    : {};
   try {
-    await db.collection('proposalRequests').add({ ...lead, status: 'new', createdAt: FieldValue.serverTimestamp() });
-    return true;
+    const ref = await db.collection('proposalRequests').add({
+      ...lead,
+      status: 'new',
+      ...gen,
+      createdAt: FieldValue.serverTimestamp(),
+    });
+    return ref.id;
   } catch {
     // eslint-disable-next-line no-console
     console.warn('[GO AI] Firestore write failed.');
-    return false;
+    return null;
   }
 }
 
@@ -115,35 +129,16 @@ function buildEmailHtml(lead: Lead): string {
   </div></body></html>`;
 }
 
-/** Email the lead to the team via the Resend REST API (no SDK dependency). */
+/** Email the lead to the team via the shared Resend helper. */
 async function deliverToEmail(lead: Lead): Promise<boolean> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) return false;
-  const from = process.env.RESEND_FROM || 'GO AI <leads@updates.go-ai.gr>';
   const to = process.env.RESEND_TO || 'support@go-ai.gr';
   const name = [lead.firstName, lead.lastName].filter(Boolean).join(' ');
-  const body: Record<string, unknown> = {
-    from,
-    to: [to],
+  return sendEmail({
+    to,
     subject: `New proposal request — ${lead.businessName || name || 'New lead'}`,
     html: buildEmailHtml(lead),
-  };
-  if (lead.email) body.reply_to = lead.email;
-  try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      signal: AbortSignal.timeout(8000),
-    });
-    // eslint-disable-next-line no-console
-    if (!res.ok) console.warn('[GO AI] Resend email failed:', res.status);
-    return res.ok;
-  } catch {
-    // eslint-disable-next-line no-console
-    console.warn('[GO AI] Resend email request failed.');
-    return false;
-  }
+    replyTo: lead.email || undefined,
+  });
 }
 
 export async function submitProposal(input: ProposalRequestInput): Promise<SubmitResult> {
@@ -154,9 +149,13 @@ export async function submitProposal(input: ProposalRequestInput): Promise<Submi
 
   // Email the team (Resend) and persist (Firestore) together — the email always
   // fires so the owner is notified on every valid submit.
-  const [emailed, stored] = await Promise.all([deliverToEmail(lead), deliverToFirestore(lead)]);
-  let delivered = emailed || stored;
+  const [emailed, briefId] = await Promise.all([deliverToEmail(lead), deliverToFirestore(lead)]);
+  let delivered = emailed || !!briefId;
   if (!delivered) delivered = await deliverToWebhook(lead);
+
+  // Best-effort, non-blocking: hand the stored brief to the generation agent.
+  // Runs after the response is sent, so it never adds latency or fails the lead.
+  if (briefId && process.env.HERMES_VPS_ENDPOINT) after(async () => { await enqueueGeneration(lead, briefId); });
 
   if (delivered) return { ok: true, id: 'received' };
 

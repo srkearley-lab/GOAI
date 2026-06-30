@@ -7,7 +7,7 @@ import { WHATSAPP } from '@/lib/whatsapp';
 import type { ProposalRequestInput } from '@/types';
 
 export function WizardConfirmation({ payload, onRestart }: { payload: ProposalRequestInput | null; onRestart: () => void }) {
-  const { t } = useApp();
+  const { t, tr } = useApp();
   const router = useRouter();
   return (
     <div className="container" style={{ paddingTop: 'var(--space-16)', paddingBottom: 'var(--space-12)' }}>
@@ -15,6 +15,11 @@ export function WizardConfirmation({ payload, onRestart }: { payload: ProposalRe
         <span className="glass-badge" style={{ width: 60, height: 60, borderRadius: 'var(--radius-full)' }}><Icon name="Check" size={26} stroke={2.5} /></span>
         <h2 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>{t('success_title')}</h2>
         <p style={{ fontSize: 'var(--text-md)', color: 'var(--ink-2)', maxWidth: '46ch', lineHeight: 1.6 }}>{t('success_body')}</p>
+        {payload?.email && process.env.NEXT_PUBLIC_GENERATION_ENABLED === 'true' && (
+          <p style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-sm)', color: 'var(--brand-ink)', fontWeight: 600, background: 'var(--brand-soft)', border: '1px solid var(--brand-line)', borderRadius: 'var(--radius-full)', padding: '8px 16px', maxWidth: '46ch', lineHeight: 1.5 }}>
+            <Icon name="Sparkles" size={15} /> {tr({ EN: 'We are also building you a free sample website — check your inbox in a few minutes.', GR: 'Σας ετοιμάζουμε και ένα δωρεάν δείγμα ιστοσελίδας — δείτε το email σας σε λίγα λεπτά.' })}
+          </p>
+        )}
         {payload && payload.selectedProposalItems.length > 0 && (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, justifyContent: 'center', marginTop: 4 }}>
             {payload.selectedProposalItems.map((s) => <span key={s.id} className="chip chip-brand chip-mini">{s.label}</span>)}

@@ -113,3 +113,40 @@ export interface ProposalRequestInput {
 }
 
 export type SubmitResult = { ok: true; id: string } | { ok: false; error: string };
+
+/* ---------------- Generation pipeline (Hermes sample sites) ---------------- */
+export type GenerationStatus = 'queued' | 'building' | 'ready' | 'failed';
+
+/** The normalized, length-capped lead the wizard produces and the generation
+ *  agent consumes as its brief. Mirrors buildLead() in actions/submit-proposal. */
+export interface ProposalLead {
+  language: Lang;
+  selectedProposalItems: ProposalSelectedItem[];
+  firstName: string;
+  lastName: string;
+  businessName: string;
+  email: string;
+  phoneWhatsapp: string;
+  businessType: string;
+  location: string;
+  existingWebsiteUrl: string;
+  needsHelp: string;
+  message: string;
+  estOneoff: number;
+  estMonthly: number;
+  source: 'contact-wizard';
+}
+
+/** A single timestamped progress note streamed back by the generation agent. */
+export interface GenerationEvent { at: string; message: string }
+
+/** Result payload the VPS agent POSTs back to /api/generate/callback. */
+export interface GenerationCallback {
+  briefId: string;
+  status: GenerationStatus;
+  sampleUrl?: string;
+  repoUrl?: string;
+  jobId?: string;
+  error?: string;
+  events?: GenerationEvent[];
+}
