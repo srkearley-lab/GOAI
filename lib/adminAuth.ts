@@ -1,46 +1,51 @@
 import 'server-only';
 /* ============================================================
-   GO AI — /admin team session (lightweight, no user accounts).
-   One shared password (ADMIN_PASSWORD env) → an HttpOnly cookie
-   holding `expiry.hmac(expiry)` signed with a key derived from
-   the password. No DB, no external auth service.
+   GO AI — /admin access control (Firebase Auth + whitelist).
+   Sign-in happens client-side (email/password or Google via the
+   Firebase Web SDK); the server verifies the ID token, checks the
+   email against ADMIN_ALLOWED_EMAILS (comma-separated), and issues
+   a Firebase session cookie. Every admin request re-verifies the
+   cookie AND the whitelist, so removing an email revokes access.
    ============================================================ */
-import { createHmac, timingSafeEqual } from 'crypto';
+import { getAdminAuth } from '@/lib/firebaseAdmin';
 
 export const ADMIN_COOKIE = 'goai_admin';
-const SESSION_SECONDS = 7 * 24 * 60 * 60; // 1 week
+export const SESSION_MS = 7 * 24 * 60 * 60 * 1000; // 1 week
 
-function pass(): string {
-  return process.env.ADMIN_PASSWORD || '';
-}
-
-function sig(exp: string): string {
-  return createHmac('sha256', 'goai-admin:' + pass()).update(exp).digest('hex');
+function whitelist(): string[] {
+  return (process.env.ADMIN_ALLOWED_EMAILS || '')
+    .split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
 }
 
 export function adminConfigured(): boolean {
-  return pass().length > 0;
+  return whitelist().length > 0 && !!getAdminAuth();
 }
 
-export function checkPassword(candidate: string): boolean {
-  const a = Buffer.from(candidate || '', 'utf8');
-  const b = Buffer.from(pass(), 'utf8');
-  return b.length > 0 && a.length === b.length && timingSafeEqual(a, b);
+export function isAllowedEmail(email: string | undefined): boolean {
+  return !!email && whitelist().includes(email.toLowerCase());
 }
 
-export function makeSession(): { name: string; value: string; maxAge: number } {
-  const exp = String(Date.now() + SESSION_SECONDS * 1000);
-  return { name: ADMIN_COOKIE, value: `${exp}.${sig(exp)}`, maxAge: SESSION_SECONDS };
+/** ID token (fresh, from the client SDK) → session cookie value, or null when
+ *  the account isn't whitelisted / auth is unavailable. */
+export async function createSession(idToken: string): Promise<string | null> {
+  const auth = getAdminAuth();
+  if (!auth) return null;
+  const decoded = await auth.verifyIdToken(idToken);
+  if (!isAllowedEmail(decoded.email)) return null;
+  return auth.createSessionCookie(idToken, { expiresIn: SESSION_MS });
 }
 
-export function verifySession(value: string | undefined): boolean {
-  if (!value || !adminConfigured()) return false;
-  const i = value.indexOf('.');
-  if (i < 0) return false;
-  const exp = value.slice(0, i);
-  const given = value.slice(i + 1);
-  if (!/^\d+$/.test(exp) || Number(exp) < Date.now()) return false;
-  const expected = Buffer.from(sig(exp), 'utf8');
-  const got = Buffer.from(given, 'utf8');
-  return expected.length === got.length && timingSafeEqual(expected, got);
+/** Session cookie → signed-in admin email, or null. */
+export async function verifySession(cookieValue: string | undefined): Promise<string | null> {
+  if (!cookieValue) return null;
+  const auth = getAdminAuth();
+  if (!auth) return null;
+  try {
+    const decoded = await auth.verifySessionCookie(cookieValue, false);
+    return isAllowedEmail(decoded.email) ? (decoded.email as string) : null;
+  } catch {
+    return null;
+  }
 }

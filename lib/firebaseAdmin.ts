@@ -1,6 +1,7 @@
 import 'server-only';
 import { cert, getApps, initializeApp, type App } from 'firebase-admin/app';
 import { getFirestore, type Firestore } from 'firebase-admin/firestore';
+import { getAuth, type Auth } from 'firebase-admin/auth';
 
 /**
  * Server-only Firebase Admin singleton. Returns null when credentials are
@@ -19,4 +20,9 @@ function getApp(): App | null {
 export function getDb(): Firestore | null {
   const app = getApp();
   return app ? getFirestore(app) : null;
+}
+
+export function getAdminAuth(): Auth | null {
+  const app = getApp();
+  return app ? getAuth(app) : null;
 }

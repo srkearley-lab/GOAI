@@ -8,7 +8,8 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import { verifySession, adminConfigured, ADMIN_COOKIE } from '@/lib/adminAuth';
 import { fetchLeads } from '@/lib/adminData';
-import { adminLogin, adminLogout } from './actions';
+import { AdminLoginForm } from '@/components/admin/AdminLoginForm';
+import { SignOutButton } from '@/components/admin/SignOutButton';
 import { StatusChip, fmtDate, estimate } from './ui';
 
 export const dynamic = 'force-dynamic';
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-function LoginView({ error }: { error: boolean }) {
+function LoginView() {
   return (
     <main style={{ minHeight: '70vh', display: 'grid', placeItems: 'center', padding: '120px 24px 64px' }}>
       <div className="card" style={{ width: '100%', maxWidth: 400, padding: 'var(--space-8)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
@@ -25,25 +26,20 @@ function LoginView({ error }: { error: boolean }) {
         <h1 style={{ fontSize: 'var(--text-lg)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>Team sign-in</h1>
         {!adminConfigured() ? (
           <p style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-2)', lineHeight: 1.6 }}>
-            Admin access isn&apos;t configured yet — set <code>ADMIN_PASSWORD</code> in the environment and redeploy.
+            Admin access isn&apos;t configured yet — set <code>ADMIN_ALLOWED_EMAILS</code> (comma-separated team
+            emails) in the environment and redeploy.
           </p>
         ) : (
-          <form action={adminLogin} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
-            <label className="label" htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" required autoFocus className="field" placeholder="••••••••••" />
-            {error && <p style={{ fontSize: 'var(--text-xs)', color: '#b91c1c', fontWeight: 600 }}>Wrong password — try again.</p>}
-            <button type="submit" className="btn btn-primary" style={{ marginTop: 4 }}>Sign in</button>
-          </form>
+          <AdminLoginForm />
         )}
       </div>
     </main>
   );
 }
 
-export default async function AdminPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
-  const sp = await searchParams;
-  const authed = verifySession((await cookies()).get(ADMIN_COOKIE)?.value);
-  if (!authed) return <LoginView error={sp.error === '1'} />;
+export default async function AdminPage() {
+  const adminEmail = await verifySession((await cookies()).get(ADMIN_COOKIE)?.value);
+  if (!adminEmail) return <LoginView />;
 
   const leads = await fetchLeads();
   const list = leads || [];
@@ -59,7 +55,10 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <span className="eyebrow">GO AI · Operations</span>
             <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>Leads &amp; sample builds</h1>
           </div>
-          <form action={adminLogout}><button type="submit" className="btn btn-ghost">Sign out</button></form>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-3)' }}>{adminEmail}</span>
+            <SignOutButton />
+          </div>
         </div>
 
         {leads === null ? (

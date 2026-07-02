@@ -25,8 +25,8 @@ function Row({ k, v }: { k: string; v?: string }) {
 
 export default async function AdminLeadPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const authed = verifySession((await cookies()).get(ADMIN_COOKIE)?.value);
-  if (!authed) redirect('/admin');
+  const adminEmail = await verifySession((await cookies()).get(ADMIN_COOKIE)?.value);
+  if (!adminEmail) redirect('/admin');
 
   const lead = await fetchLead(id);
   if (lead === null) redirect('/admin');
