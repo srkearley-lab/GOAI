@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/lib/theme';
 import { AppProvider } from '@/lib/store';
 import { Navbar } from '@/components/chrome/Navbar';
 import { Footer } from '@/components/chrome/Footer';
+import { ChromeGate } from '@/components/chrome/ChromeGate';
 import { AIAssistant } from '@/components/assistant/AIAssistant';
 
 const TITLE_DEFAULT = 'GO AI — Ιστοσελίδες & Αυτοματισμοί AI για επιχειρήσεις';
@@ -59,10 +60,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <ThemeProvider>
           <AppProvider>
-            <Navbar />
+            <ChromeGate><Navbar /></ChromeGate>
             {children}
-            <Footer />
-            <AIAssistant />
+            <ChromeGate>
+              <Footer />
+              <AIAssistant />
+            </ChromeGate>
           </AppProvider>
         </ThemeProvider>
       </body>

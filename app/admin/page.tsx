@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 function LoginView() {
   return (
-    <main style={{ minHeight: '70vh', display: 'grid', placeItems: 'center', padding: '120px 24px 64px' }}>
+    <main style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: '24px' }}>
       <div className="card" style={{ width: '100%', maxWidth: 400, padding: 'var(--space-8)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
         <span className="eyebrow">GO AI · Admin</span>
         <h1 style={{ fontSize: 'var(--text-lg)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>Team sign-in</h1>
@@ -48,7 +48,7 @@ export default async function AdminPage() {
   const sent = list.filter((l) => l.generation?.proposalSent).length;
 
   return (
-    <main style={{ padding: '110px 0 64px' }}>
+    <main style={{ padding: '44px 0 64px', minHeight: '100vh' }}>
       <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>

@@ -32,7 +32,7 @@ export default async function AdminLeadPage({ params }: { params: Promise<{ id: 
   if (lead === null) redirect('/admin');
   if (!lead) {
     return (
-      <main style={{ padding: '120px 0 64px' }}>
+      <main style={{ padding: '44px 0 64px', minHeight: '100vh' }}>
         <div className="container"><div className="card" style={{ padding: 'var(--space-6)' }}>Lead not found. <Link href="/admin" style={{ color: 'var(--brand-ink)', fontWeight: 600 }}>Back to dashboard</Link></div></div>
       </main>
     );
@@ -40,7 +40,7 @@ export default async function AdminLeadPage({ params }: { params: Promise<{ id: 
   const g = lead.generation;
 
   return (
-    <main style={{ padding: '110px 0 64px' }}>
+    <main style={{ padding: '44px 0 64px', minHeight: '100vh' }}>
       <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-6)', maxWidth: 900 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           <Link href="/admin" style={{ fontSize: 'var(--text-sm)', color: 'var(--ink-3)', fontWeight: 600 }}>‹ All leads</Link>
