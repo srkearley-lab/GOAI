@@ -9,7 +9,6 @@ import { cookies } from 'next/headers';
 import { verifySession, adminConfigured, ADMIN_COOKIE } from '@/lib/adminAuth';
 import { fetchLeads } from '@/lib/adminData';
 import { AdminLoginForm } from '@/components/admin/AdminLoginForm';
-import { SignOutButton } from '@/components/admin/SignOutButton';
 import { StatusChip, fmtDate, estimate } from './ui';
 
 export const dynamic = 'force-dynamic';
@@ -37,28 +36,36 @@ function LoginView() {
   );
 }
 
-export default async function AdminPage() {
+const FILTER_TITLES: Record<string, string> = {
+  ready: 'Samples ready',
+  failed: 'Failed builds',
+  sent: 'Proposals emailed',
+};
+
+export default async function AdminPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
   const adminEmail = await verifySession((await cookies()).get(ADMIN_COOKIE)?.value);
   if (!adminEmail) return <LoginView />;
 
+  const { status } = await searchParams;
   const leads = await fetchLeads();
-  const list = leads || [];
-  const ready = list.filter((l) => l.generation?.status === 'ready').length;
-  const failed = list.filter((l) => l.generation?.status === 'failed').length;
-  const sent = list.filter((l) => l.generation?.proposalSent).length;
+  const all = leads || [];
+  const ready = all.filter((l) => l.generation?.status === 'ready').length;
+  const failed = all.filter((l) => l.generation?.status === 'failed').length;
+  const sent = all.filter((l) => l.generation?.proposalSent).length;
+  const list =
+    status === 'ready' ? all.filter((l) => l.generation?.status === 'ready')
+    : status === 'failed' ? all.filter((l) => l.generation?.status === 'failed')
+    : status === 'sent' ? all.filter((l) => l.generation?.proposalSent)
+    : all;
 
   return (
-    <main style={{ padding: '44px 0 64px', minHeight: '100vh' }}>
+    <main style={{ padding: '36px 0 64px', minHeight: '100vh' }}>
       <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-8)' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <span className="eyebrow">GO AI · Operations</span>
-            <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>Leads &amp; sample builds</h1>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-3)' }}>{adminEmail}</span>
-            <SignOutButton />
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <span className="eyebrow">GO AI · Operations</span>
+          <h1 style={{ fontSize: 'var(--text-xl)', fontWeight: 800, color: 'var(--ink)', letterSpacing: '-0.02em' }}>
+            {FILTER_TITLES[status || ''] || 'Leads & sample builds'}
+          </h1>
         </div>
 
         {leads === null ? (
@@ -70,7 +77,7 @@ export default async function AdminPage() {
           <>
             <div className="adm-stats">
               {[
-                { v: String(list.length), l: 'Total leads' },
+                { v: String(all.length), l: 'Total leads' },
                 { v: String(ready), l: 'Samples ready' },
                 { v: String(sent), l: 'Proposals emailed' },
                 { v: String(failed), l: 'Failed builds' },
@@ -91,7 +98,9 @@ export default async function AdminPage() {
                 </thead>
                 <tbody>
                   {list.length === 0 && (
-                    <tr><td colSpan={7} style={{ textAlign: 'center', color: 'var(--ink-3)', padding: 28 }}>No leads yet — they&apos;ll appear here the moment someone submits the wizard.</td></tr>
+                    <tr><td colSpan={7} style={{ textAlign: 'center', color: 'var(--ink-3)', padding: 28 }}>
+                      {status ? 'Nothing matches this filter yet.' : 'No leads yet — they’ll appear here the moment someone submits the wizard.'}
+                    </td></tr>
                   )}
                   {list.map((l) => (
                     <tr key={l.id}>
