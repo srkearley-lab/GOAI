@@ -148,5 +148,28 @@ export interface GenerationCallback {
   repoUrl?: string;
   jobId?: string;
   error?: string;
+  /** True when the agent emailed the prospect the proposal (PDF + sample link). */
+  proposalSent?: boolean;
   events?: GenerationEvent[];
+}
+
+/** One selected service, snapshotted from the live catalog at enqueue time so
+ *  the VPS agent can render the proposal PDF without storing prices itself. */
+export interface ProposalDataItem {
+  id: string;
+  label: string;
+  priceLabel: string;
+  desc: string;
+  bestFor: string;
+  features: string[];
+  amount: number;
+  recurring: boolean;
+  groupTitle: string;
+  note?: string;
+}
+
+/** Localized pricing/copy snapshot shipped with each generation job. */
+export interface ProposalData {
+  items: ProposalDataItem[];
+  totals: { oneoff: number; monthly: number };
 }

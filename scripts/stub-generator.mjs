@@ -68,6 +68,7 @@ if (mode === 'callback') {
     sampleUrl: sampleUrl || `https://${slugify(briefId)}.preview.go-ai.gr`,
     repoUrl: `https://github.com/goai-sites/${slugify(briefId)}`,
     jobId: `stub-${briefId}`,
+    proposalSent: true, // the agent emails the prospect; the site only records it
     events: [{ at: new Date().toISOString(), message: 'stub: generated + deployed' }],
   });
   process.exit(0);
@@ -96,6 +97,7 @@ if (mode === 'serve') {
           sampleUrl: `https://${slug}.preview.go-ai.gr`,
           repoUrl: `https://github.com/goai-sites/${slug}`,
           jobId: `stub-${job.briefId}`,
+          proposalSent: true,
           events: [{ at: new Date().toISOString(), message: 'stub: built + deployed' }],
         }).catch((e) => console.error('callback failed:', e.message));
       }, 2000);
