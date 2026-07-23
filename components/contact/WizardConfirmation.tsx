@@ -17,7 +17,7 @@ export function WizardConfirmation({ payload, onRestart }: { payload: ProposalRe
         <p style={{ fontSize: 'var(--text-md)', color: 'var(--ink-2)', maxWidth: '46ch', lineHeight: 1.6 }}>{t('success_body')}</p>
         {payload?.email && process.env.NEXT_PUBLIC_GENERATION_ENABLED === 'true' && (
           <p style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-sm)', color: 'var(--brand-ink)', fontWeight: 600, background: 'var(--brand-soft)', border: '1px solid var(--brand-line)', borderRadius: 'var(--radius-2xl)', padding: '10px 18px', maxWidth: '48ch', lineHeight: 1.55, textAlign: 'left' }}>
-            <Icon name="Sparkles" size={16} style={{ flexShrink: 0 }} /> {tr({ EN: 'Thanks so much for requesting a proposal! We’re putting it together now — it’ll land in your inbox within the next 5 minutes. If you don’t see it, please check your spam folder.', GR: 'Ευχαριστούμε πολύ για το αίτημά σας! Ετοιμάζουμε την πρότασή σας — θα φτάσει στο email σας μέσα στα επόμενα 5 λεπτά. Αν δεν τη δείτε, ελέγξτε τον φάκελο spam.' })}
+            <Icon name="Sparkles" size={16} style={{ flexShrink: 0 }} /> {tr({ EN: 'Thanks so much for requesting a proposal! We’re putting it together now — it’ll land in your inbox within the next few minutes. If you don’t see it, please check your spam folder.', GR: 'Ευχαριστούμε πολύ για το αίτημά σας! Ετοιμάζουμε την πρότασή σας — θα φτάσει στο email σας μέσα στα επόμενα λεπτά. Αν δεν τη δείτε, ελέγξτε τον φάκελο spam.' })}
           </p>
         )}
         {payload && payload.selectedProposalItems.length > 0 && (
